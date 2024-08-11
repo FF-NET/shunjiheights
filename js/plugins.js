@@ -4,7 +4,7 @@ var $plugins =
 [
 {"name":"OrangeCustomEvents","status":true,"description":"This plugin Will let you add or copy events to the current map","parameters":{}},
 {"name":"OrangeCustomEventCreator","status":true,"description":"This plugin Will let you create virtual events with script calls","parameters":{}},
-{"name":"MMO_Core","status":true,"description":"MMORPG Maker MV - Core","parameters":{"Server Location":"http://localhost:8097/"}},
+{"name":"MMO_Core","status":true,"description":"MMORPG Maker MV - Core","parameters":{"Server Location":"http://175.125.21.145/:8097/"}},
 {"name":"MMO_ServerSideMaps","status":false,"description":"MMORPG Maker MV - Server Side Maps","parameters":{}},
 {"name":"MMO_Core_Player","status":true,"description":"MMORPG Maker MV - Core Handling Player","parameters":{"Mouse Movements":"false","Use Native Respawn":"false"}},
 {"name":"MMO_Core_Players","status":true,"description":"MMORPG Maker MV - Core Handling Players","parameters":{}},
@@ -13,7 +13,7 @@ var $plugins =
 {"name":"MMO_Core_Party_Combat","status":true,"description":"MMORPG Maker MV - Core Handling Combat in Party","parameters":{}},
 {"name":"MMO_Core_Bank","status":true,"description":"MMORPG Maker MV - Core Handling Bank","parameters":{}},
 {"name":"MMO_ChatBox","status":true,"description":"MMORPG Maker MV - ChatBox","parameters":{"chatPosition":"TOP LEFT"}},
-{"name":"MMO_Overhead","status":false,"description":"Add name over actors name","parameters":{}},
+{"name":"MMO_Overhead","status":true,"description":"Add name over actors name","parameters":{}},
 {"name":"MMO_LoginForm","status":true,"description":"MMORPG Maker MV - Login Form","parameters":{}},
 {"name":"CacheOverride","status":true,"description":"This allows to force users to re-load old files","parameters":{"gameVersion":"1.0.0"}},
 {"name":"delete_menuui","status":true,"description":"","parameters":{}},
