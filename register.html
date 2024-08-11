@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" href="icon/icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="./register.css">
-  <title>Sign Up - Naire Online</title>
+  <title>S'inscrire - Naire Online</title>
 </head>
 <body style="margin:0;padding:0;">
   <div class="overlay"></div>
@@ -27,7 +27,7 @@
               <div class="col s12">
                 <ol>
                   <li id="allfieldsrequired" style="color: black;">All fields are required</li>
-                  <li id="usernameformat" style="color: black;">Username must be alphanumeric or Korean characters</li>
+                  <li id="usernameformat" style="color: black;">Username must be alphanumeric</li>
                 </ol>
               </div>
             </div>
@@ -64,6 +64,7 @@
 
   <!-- Please : Set your own server on line 103 -->
 
+
   <script type="text/javascript" src="./js/libs/materialize.min.js"></script>
   <script type="text/javascript" src="./js/libs/socket.io.js"></script>
 
@@ -75,9 +76,9 @@
     let isFormValid = false; // declare a boolean to true to remember if the form datas are correct
 
     const checkInputs = () => {
-      // This function will test the username format (from 4 to 25 alphanumeric characters or Korean characters)
+      // This function will test the username format (from 4 to 25 alphanumeric characters)
       function isValidUsername(string) {
-        return /^[가-힣a-zA-Z0-9]{4,25}$/.test(string);
+        return /^(?=[a-zA-Z0-9\s]{4,25}$)(?=[a-zA-Z0-9\s])(?:([\w\s*?])\1?(?!\1))+$/.test(string);
       }
 
       isFormValid = true; // We first say the form is valid
@@ -108,7 +109,7 @@
           document.getElementById('serverResponseZone').style.color = "red";
         }
       });
-      socket.on('register_success', (data,callback) => { // On success, just display the success msg from backend
+      socket.on('register_success', (data,callback) => { // On succes, just display the success msg from backend
         if (data) {
           document.getElementById('serverResponseZone').innerHTML = data.msg;
           document.getElementById('serverResponseZone').style.color = "green";
