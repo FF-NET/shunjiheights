@@ -34,6 +34,16 @@
  * @value purity
  * @option Karma
  * @value karma
+ * @option Popularity
+ * @value popularity
+ * @option Novelty
+ * @value novelty
+ * @option Maniac
+ * @value maniac
+ * @option Sensitivity
+ * @value sensitivity
+ * @option Worldview
+ * @value worldview
  *
  * @arg value
  * @text Value

@@ -10,13 +10,14 @@
         var events = $gameMap.events(); // 맵의 모든 이벤트(NPC 포함)를 가져옴
         for (var i = 0; i < events.length; i++) {
             var npcName = events[i].event().name; // 이벤트의 이름을 NPC의 이름으로 사용
-            if (!npcName.match(/^\[.*\]$/)) { // 이름이 []로 감싸져 있지 않은 경우에만 네임태그 생성
+            if (npcName !== "Custom Event" && !npcName.match(/^\[.*\]$/)) { // 이름이 "Custom Event"가 아니고 []로 감싸져 있지 않은 경우에만 네임태그 생성
                 var nameLabel = new Sprite_NameLabel(npcName, events[i]);
                 this._spriteset.addChild(nameLabel); // Spriteset_Map에 이름표 추가
                 this._npcNameLabels.push(nameLabel); // 이름표 스프라이트를 배열에 저장
             }
         }
     };
+    
 
     function Sprite_NameLabel() {
         this.initialize.apply(this, arguments);
