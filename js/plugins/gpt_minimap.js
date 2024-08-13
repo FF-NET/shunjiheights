@@ -65,6 +65,12 @@
         var events = $gameMap.events(); // 현재 맵의 모든 이벤트(NPC 포함)를 가져옴
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
+            
+            // 이벤트 이름이 {}로 감싸져 있는 경우 미니맵에 표시하지 않음
+            if (event.event().name && event.event().name.match(/^\{.*\}$/)) {
+                continue; // 이 이벤트를 건너뜀
+            }
+
             if (event.event().name && event.event().name.match(/^\[.*\]$/)) {
                 // 이름이 []로 감싸져 있는 이벤트는 파란색 마커로 표시
                 var eventMarker = new Sprite(new Bitmap(4, 4));
@@ -93,7 +99,7 @@
 
         for (var i = 0; i < this._npcMarkers.length; i++) {
             var npc = $gameMap.events().filter(function(event) {
-                return event.event().name && !event.event().name.match(/^\[.*\]$/);
+                return event.event().name && !event.event().name.match(/^\[.*\]$/) && !event.event().name.match(/^\{.*\}$/);
             })[i]; // NPC 이벤트 가져오기
             var npcX = npc.x * this._minimapScaleX;
             var npcY = npc.y * this._minimapScaleY;

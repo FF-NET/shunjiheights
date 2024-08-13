@@ -31,7 +31,7 @@ var $plugins =
 {"name":"randomMap","status":false,"description":"","parameters":{}},
 {"name":"disableESCmenu","status":true,"description":"Prevents accessing menu with ESC key","parameters":{}},
 {"name":"gpt_actor0002_exp","status":true,"description":"","parameters":{}},
-{"name":"gpt_playernametag","status":true,"description":"","parameters":{}},
+{"name":"gpt_playernametag","status":false,"description":"","parameters":{}},
 {"name":"gpt_partyHP","status":false,"description":"","parameters":{}},
 {"name":"gpt_npcnametag","status":true,"description":"","parameters":{}},
 {"name":"gpt_minimap","status":true,"description":"","parameters":{}},
