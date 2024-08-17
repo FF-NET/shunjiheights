@@ -11,8 +11,11 @@
  *
  * @arg actorId
  * @text Actor ID
- * @desc The ID of the actor to modify.
+ * @desc The ID of the actor to modify. Select "None" to apply to all party members except the leader.
  * @type actor
+ * @default 0
+ * @option None
+ * @value 0
  *
  * @arg statName
  * @text Stat Name
@@ -62,11 +65,23 @@
         const statName = args.statName;
         const value = Number(args.value);
 
-        const actor = $gameActors.actor(actorId);
-        if (actor && typeof actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)] === "function") {
-            actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)](value);
+        if (actorId === 0) {
+            // actorId가 0일 경우, 파티의 모든 멤버 중 리더를 제외하고 스탯 변경 적용
+            $gameParty.members().forEach(actor => {
+                if (actor !== $gameParty.leader()) {
+                    if (typeof actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)] === "function") {
+                        actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)](value);
+                    }
+                }
+            });
         } else {
-            console.error("Invalid actor ID or stat name.");
+            // 특정 Actor ID에 대해 스탯 변경 적용
+            const actor = $gameActors.actor(actorId);
+            if (actor && typeof actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)] === "function") {
+                actor["change" + statName.charAt(0).toUpperCase() + statName.slice(1)](value);
+            } else {
+                console.error("Invalid actor ID or stat name.");
+            }
         }
     });
 })();

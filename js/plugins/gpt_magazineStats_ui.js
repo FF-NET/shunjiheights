@@ -13,13 +13,17 @@
         var startX = Graphics.width - 110; // 우측 상단에서 시작할 X 좌표
         var startY = 10; // 상단에서 시작할 Y 좌표
 
-        for (var i = 0; i < stats.length; i++) {
-            var statBar = new Sprite_StatBar($gameActors.actor(2), stats[i]);
-            statBar.x = startX; // 우측 정렬
-            statBar.y = startY + i * 25; // 상단에서 수직으로 정렬
-            statBar.opacity = 225; // 기본 투명도 50%
-            this._spriteset.addChild(statBar);
-            this._statBars.push(statBar);
+        // 파티 리더를 제외한 첫 번째 파티원에 대해 스탯 바 생성
+        if ($gameParty.members().length > 1) { // 리더를 제외한 파티원이 존재할 때만 실행
+            var actor = $gameParty.members()[1]; // 리더를 제외한 첫 번째 파티원
+            for (var i = 0; i < stats.length; i++) {
+                var statBar = new Sprite_StatBar(actor, stats[i]);
+                statBar.x = startX; // 우측 정렬
+                statBar.y = startY + i * 25; // 상단에서 수직으로 정렬
+                statBar.opacity = 225; // 기본 투명도 50%
+                this._spriteset.addChild(statBar);
+                this._statBars.push(statBar);
+            }
         }
     };
 
