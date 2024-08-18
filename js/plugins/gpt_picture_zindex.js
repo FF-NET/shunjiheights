@@ -41,7 +41,7 @@
         _Game_Screen_showPicture.call(this, pictureId, name, origin, x, y, scaleX, scaleY, 0, blendMode);
         
         // 그림을 페이드인 시킴 (60 프레임 동안)
-        this.picture(pictureId).fadeIn(60);
+        this.picture(pictureId).fadeIn(30);
 
         // 그림을 최상단에 표시하기 위해 Sprite_Picture를 UI 위로 이동
         if (SceneManager._scene._spriteset) {
@@ -56,7 +56,7 @@
         var picture = this.picture(pictureId);
         if (picture) {
             // 그림을 페이드아웃 시킴 (60 프레임 동안)
-            picture.fadeOut(60);
+            picture.fadeOut(30);
 
             // 페이드아웃 후 그림을 삭제하도록 딜레이 추가
             setTimeout(function() {

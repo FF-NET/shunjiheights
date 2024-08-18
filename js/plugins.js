@@ -26,8 +26,8 @@ var $plugins =
 {"name":"gptcodeshake","status":false,"description":"","parameters":{}},
 {"name":"gptcodeHealth","status":false,"description":"","parameters":{}},
 {"name":"gpt_followplayercamera","status":true,"description":"","parameters":{}},
-{"name":"gptAutoSaveControl","status":true,"description":"Automatically saves and loads the game to/from Slot 1.","parameters":{}},
-{"name":"gptAutorun","status":true,"description":"Autoload a saved game when the game boots","parameters":{"File ID":"0"}},
+{"name":"gptAutoSaveControl","status":false,"description":"Automatically saves and loads the game to/from Slot 1.","parameters":{}},
+{"name":"gptAutorun","status":false,"description":"Autoload a saved game when the game boots","parameters":{"File ID":"0"}},
 {"name":"randomMap","status":false,"description":"","parameters":{}},
 {"name":"disableESCmenu","status":true,"description":"Prevents accessing menu with ESC key","parameters":{}},
 {"name":"gpt_actor0002_exp","status":false,"description":"","parameters":{}},
@@ -45,5 +45,6 @@ var $plugins =
 {"name":"gpt_picture_zindex","status":true,"description":"Display Pictures Above All Layers","parameters":{}},
 {"name":"gpt_npc_starzindex","status":true,"description":"","parameters":{}},
 {"name":"YEP_RegionRestrictions","status":true,"description":"v1.04 Use regions to block out Events and/or the player from\nbeing able to venture into those spots.","parameters":{"Player Restrict":"0","Event Restrict":"1","All Restrict":"0","Player Allow":"0","Event Allow":"0","All Allow":"0"}},
-{"name":"gpt_moveEventToPosition","status":true,"description":"Adds curly braces {} around an event's name dynamically during gameplay.","parameters":{}}
+{"name":"gpt_moveEventToPosition","status":true,"description":"Adds curly braces {} around an event's name dynamically during gameplay.","parameters":{}},
+{"name":"gpt_website","status":true,"description":"Opens a specific website in the default web browser during gameplay.","parameters":{}}
 ];
