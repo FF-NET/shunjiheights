@@ -7,13 +7,16 @@
     window.isFirstLogin = true; // 처음 로그인인지 확인하는 플래그를 전역 변수로 설정
 
     // Scene_Map의 초기화 함수 수정
+    
     var _Scene_Map_prototype_initialize = Scene_Map.prototype.initialize;
     Scene_Map.prototype.initialize = function() {
         if (isFirstLogin) {
             // 초기화 시점에서 화면을 하얗게 덮음
+            
             $gameScreen.startTint([255, 255, 255, 255], 0);  // 즉시 흰색으로 덮음
         }
         _Scene_Map_prototype_initialize.call(this);
+        
     };
 
     // Scene_Map의 start 함수 수정

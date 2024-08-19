@@ -922,6 +922,12 @@ Graphics._centerElement = function(element) {
     element.style.bottom = 0;
     element.style.width = width + "px";
     element.style.height = height + "px";
+    element.style.borderTopStyle = "double";
+    element.style.borderRightStyle = "double";
+    element.style.borderBottomStyle = "double";
+    element.style.borderLeftStyle = "double";
+    element.style.borderRadius = "15px";
+    
 };
 
 Graphics._disableContextMenu = function() {

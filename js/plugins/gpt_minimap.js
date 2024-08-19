@@ -48,8 +48,6 @@
         this.updateMinimap(); // 초기 업데이트
     };
 
-
-    
     Scene_Map.prototype.drawMinimapTerrain = function() {
         var mapWidth = $dataMap.width;
         var mapHeight = $dataMap.height;
@@ -180,6 +178,11 @@
                     delete this._otherPlayerMarkers[id];
                     delete this._otherPlayerPreviousPositions[id];
                 }
+            } else {
+                // 플레이어가 없어지면 마커 제거
+                this._spriteset.removeChild(this._otherPlayerMarkers[id]);
+                delete this._otherPlayerMarkers[id];
+                delete this._otherPlayerPreviousPositions[id];
             }
         }
 
