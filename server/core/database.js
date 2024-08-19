@@ -21,7 +21,7 @@ exports.initialize = function(callback) {
     // IMPORTANT : DO NOT TOUCH THIS
         const initialServerConfig = {
             port: 8097,
-            passwordRequired: true,
+            passwordRequired: false,
             newPlayerDetails: {
                 permission: 0,
                 mapId: 1,
