@@ -14,6 +14,24 @@ exports.serverEvent = new EventEmitter();
 exports.initialize = function(socketConnection) {
     exports.socketConnection = socketConnection;
 
+        // 사용자 체크 이벤트 추가
+        socketConnection.on('connection', function(socket) {
+            socket.on('check_user', function(username, callback) {
+                // 해당 사용자가 이미 접속되어 있는지 확인
+                const isUserConnected = Object.values(socketConnection.sockets.sockets).some(s => s.username === username);
+                
+                // 결과를 클라이언트로 반환
+                callback(!isUserConnected);
+            });
+    
+            // 로그인 성공 시 username을 소켓에 저장
+            socket.on('login_success', function(data) {
+                socket.username = data.username;  // 사용자의 username을 소켓에 저장
+            });
+    
+            // 로그인 실패 시 처리 로직 추가 가능
+        });
+
     // We load all the modules in the socket server
     exports.loadModules("", false).then(() => {
         console.log(`[I] Socket.IO server started on port ${MMO_Core.database.SERVER_CONFIG.port}...`);

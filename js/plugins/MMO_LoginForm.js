@@ -131,7 +131,7 @@ function LoginForm() {
                       font-size: 24px;
                   "
                 >
-                    Play
+                    접속하기
               </button>
           </div>
           ${LoginForm.Parameters.allowAccountCreation ? 
@@ -143,6 +143,7 @@ function LoginForm() {
 
       document.getElementById('text_zone').innerHTML = html;
       document.getElementById("inputUsername").focus();
+      
 
       const verifyPass = () => {
           if (LoginForm.Parameters.allowAccountCreation) {
@@ -202,7 +203,7 @@ function LoginForm() {
     var that = this;
 
 // user000부터 user020까지 중 하나의 아이디를 랜덤으로 선택
-const userNumber = Math.floor(Math.random() * 21).toString().padStart(3, '0'); // 000부터 020까지의 숫자
+const userNumber = Math.floor(Math.random() * 1000).toString().padStart(3, '0'); // 000부터 020까지의 숫자
 const username = `user${userNumber}`;
 
 let payload = { username: username };

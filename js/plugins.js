@@ -13,7 +13,7 @@ var $plugins =
 {"name":"MMO_Core_Party","status":true,"description":"MMORPG Maker MV - Core Handling Parties","parameters":{}},
 {"name":"MMO_Core_Party_Combat","status":false,"description":"MMORPG Maker MV - Core Handling Combat in Party","parameters":{}},
 {"name":"MMO_Core_Bank","status":false,"description":"MMORPG Maker MV - Core Handling Bank","parameters":{}},
-{"name":"MMO_ChatBox","status":false,"description":"MMORPG Maker MV - ChatBox","parameters":{"chatPosition":"TOP LEFT"}},
+{"name":"MMO_ChatBox","status":true,"description":"MMORPG Maker MV - ChatBox","parameters":{"chatPosition":"BOTTOM CENTER"}},
 {"name":"MMO_LoginForm","status":true,"description":"MMORPG Maker MV - Login Form","parameters":{"allowAccountCreation":"No"}},
 {"name":"MMO_Overhead","status":false,"description":"Add name over actors name","parameters":{}},
 {"name":"CacheOverride","status":true,"description":"This allows to force users to re-load old files","parameters":{"gameVersion":"1.0.0"}},
@@ -47,5 +47,6 @@ var $plugins =
 {"name":"gpt_npc_starzindex","status":true,"description":"","parameters":{}},
 {"name":"YEP_RegionRestrictions","status":true,"description":"v1.04 Use regions to block out Events and/or the player from\nbeing able to venture into those spots.","parameters":{"Player Restrict":"0","Event Restrict":"1","All Restrict":"0","Player Allow":"0","Event Allow":"0","All Allow":"0"}},
 {"name":"gpt_website","status":true,"description":"Opens a specific website in the default web browser during gameplay.","parameters":{}},
-{"name":"MechPen_SharpText","status":false,"description":"v0.96 Text Sharpen plugin beta","parameters":{"outlineSharp":"false","textThickness":"0.50"}}
+{"name":"MechPen_SharpText","status":false,"description":"v0.96 Text Sharpen plugin beta","parameters":{"outlineSharp":"false","textThickness":"0.50"}},
+{"name":"TDDP_NoFastForward","status":true,"description":"2.1.0 Disables the ability to fast forward move routes and/or text.                                                          id:TDDP_NoFastForward","parameters":{"Disable for Move Routes":"false","Disable for Show Text":"true"}}
 ];

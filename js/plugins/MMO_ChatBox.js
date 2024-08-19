@@ -29,7 +29,6 @@ function ChatBox() {
   
   ChatBox.Parameters = PluginManager.parameters('MMO_ChatBox');
 
-
   ChatBox.isGenerated = false;
   ChatBox.isVisible = false;
   ChatBox.isFocused = false;
@@ -50,6 +49,11 @@ function ChatBox() {
   Scene_Map.prototype.onMapLoaded = function() {
     ChatBox.onMapLoaded.call(this);
 
+    if ($gameMap.mapId() !== 7) {
+      if (ChatBox.isVisible) ChatBox.hide(); // 맵이 7이 아니면 채팅박스 숨김
+      return;
+    }
+
     if(!ChatBox.isGenerated) {
       if (!document.getElementById('GameCanvas')) setTimeout(() => {}, 1000);
       return ChatBox.generate();
@@ -62,8 +66,10 @@ function ChatBox() {
   SceneManager.changeScene = function() {
     if (this.isSceneChanging() && !this.isCurrentSceneBusy()) {
       if(SceneManager._nextScene instanceof Scene_Map) {
-        ChatBox.isVisible = false;
-        ChatBox.toggle();
+        if ($gameMap.mapId() === 7) {
+          ChatBox.isVisible = false;
+          ChatBox.toggle();
+        }
       } else {
         ChatBox.isVisible = true;
         ChatBox.toggle();
@@ -75,14 +81,18 @@ function ChatBox() {
   // Handle the toggle of the chatbox in case of dialogue with NPC
   ChatBox.startMessage = Window_Message.prototype.startMessage;
   Window_Message.prototype.startMessage = function() {
-    ChatBox.toggle();
+    if ($gameMap.mapId() === 7) {
+      ChatBox.toggle();
+    }
     ChatBox.startMessage.call(this);
   }
 
   // Handle the toggle of the chatbox in case of dialogue with NPC
   ChatBox.terminateMessage = Window_Message.prototype.terminateMessage;
   Window_Message.prototype.terminateMessage = function() {
-    ChatBox.toggle();
+    if ($gameMap.mapId() === 7) {
+      ChatBox.toggle();
+    }
     ChatBox.terminateMessage.call(this);
   }
 
@@ -98,6 +108,20 @@ function ChatBox() {
 
     this.isGenerated = true;
     this.isVisible = true;
+  };
+
+  // Show the chatbox
+  ChatBox.show = function() {
+    if(!ChatBox.isVisible) {
+      ChatBox.toggle();
+    }
+  };
+
+  // Hide the chatbox
+  ChatBox.hide = function() {
+    if(ChatBox.isVisible) {
+      ChatBox.toggle();
+    }
   };
 
   // Toggle the chatbox
@@ -117,15 +141,11 @@ function ChatBox() {
     let canvas = document.querySelector("canvas");
     let offsetTop     = canvas.offsetTop;
     let offsetLeft  = canvas.offsetLeft;
-    let offsetBottom  = canvas.offseBottom;
 
     let chatboxInput = document.querySelector("#chatbox_input");
     let chatboxBox = document.querySelector("#chatbox_box");
     
     switch (this.Parameters["chatPosition"]) {
-      /* Note for CENTER positions : 
-       * 50vw always is half the screen width, 
-       * 169 is half the box width */
       case "TOP LEFT":
         chatboxInput.style.left = (offsetLeft + 8) + "px";
         chatboxInput.style.top = (offsetTop + 116) + "px";
