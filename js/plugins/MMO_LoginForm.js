@@ -201,11 +201,12 @@ function LoginForm() {
   LoginForm.prototype.connectAttempt = function(){
     var that = this;
 
-    // guest00부터 guest10까지 중 하나의 아이디를 랜덤으로 선택
-    const guestNumber = Math.floor(Math.random() * 11).toString().padStart(2, '0'); // 00부터 10까지의 숫자
-    const guestUsername = `guest${guestNumber}`;
+// user000부터 user020까지 중 하나의 아이디를 랜덤으로 선택
+const userNumber = Math.floor(Math.random() * 21).toString().padStart(3, '0'); // 000부터 020까지의 숫자
+const username = `user${userNumber}`;
 
-    let payload = { username: guestUsername };
+let payload = { username: username };
+
 
     // 서버와의 상호작용을 통해 로그인 시도
     MMO_Core.socket.on("login_success", function(data){
