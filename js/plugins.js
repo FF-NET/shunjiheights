@@ -46,5 +46,6 @@ var $plugins =
 {"name":"gpt_picture_zindex","status":true,"description":"Display Pictures Above All Layers","parameters":{}},
 {"name":"gpt_npc_starzindex","status":true,"description":"","parameters":{}},
 {"name":"YEP_RegionRestrictions","status":true,"description":"v1.04 Use regions to block out Events and/or the player from\nbeing able to venture into those spots.","parameters":{"Player Restrict":"0","Event Restrict":"1","All Restrict":"0","Player Allow":"0","Event Allow":"0","All Allow":"0"}},
-{"name":"gpt_website","status":true,"description":"Opens a specific website in the default web browser during gameplay.","parameters":{}}
+{"name":"gpt_website","status":true,"description":"Opens a specific website in the default web browser during gameplay.","parameters":{}},
+{"name":"MechPen_SharpText","status":false,"description":"v0.96 Text Sharpen plugin beta","parameters":{"outlineSharp":"false","textThickness":"0.50"}}
 ];
