@@ -24,7 +24,7 @@ exports.initialize = function(callback) {
             passwordRequired: true,
             newPlayerDetails: {
                 permission: 0,
-                mapId: 3,
+                mapId: 1,
                 skin: {
                     characterIndex: 0,
                     characterName: "Actor1",

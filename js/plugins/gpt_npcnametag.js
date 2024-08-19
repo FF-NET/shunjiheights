@@ -1,25 +1,32 @@
 (function() {
-    var _Scene_Map_createAllWindows = Scene_Map.prototype.createAllWindows;
-    Scene_Map.prototype.createAllWindows = function() {
-        _Scene_Map_createAllWindows.call(this);
-        this.createNpcNameLabels();
+    var _Scene_Map_prototype_start = Scene_Map.prototype.start;
+    Scene_Map.prototype.start = function() {
+        _Scene_Map_prototype_start.call(this);
+
+        if (isFirstLogin) {
+            // 첫 로그인일 때는 1초 대기 후 네임태그 생성
+            setTimeout(() => {
+                this.createNpcNameLabels(true); // 첫 로그인일 경우 페이드인 애니메이션 적용
+            }, 1060); // 페이드아웃 후 이름표 생성 (60프레임 = 1초 후)
+        } else {
+            // 첫 로그인 이후에는 바로 네임태그 생성 (페이드인 없음)
+            this.createNpcNameLabels(false);
+        }
     };
 
-Scene_Map.prototype.createNpcNameLabels = function() {
-    this._npcNameLabels = [];
-    var events = $gameMap.events(); // 맵의 모든 이벤트(NPC 포함)를 가져옴
-    for (var i = 0; i < events.length; i++) {
-        var npcName = events[i].event().name; // 이벤트의 이름을 NPC의 이름으로 사용
-        if (npcName !== "Custom Event" && !npcName.match(/^\[.*\]$/) && !npcName.match(/^\{.*\}$/)) {
-            // 이름이 "Custom Event"가 아니고 [] 또는 {}로 감싸져 있지 않은 경우에만 네임태그 생성
-            var nameLabel = new Sprite_NameLabel(npcName, events[i]);
-            this._spriteset.addChild(nameLabel); // Spriteset_Map에 이름표 추가
-            this._npcNameLabels.push(nameLabel); // 이름표 스프라이트를 배열에 저장
+    Scene_Map.prototype.createNpcNameLabels = function(withFadeIn) {
+        this._npcNameLabels = [];
+        var events = $gameMap.events(); // 맵의 모든 이벤트(NPC 포함)를 가져옴
+        for (var i = 0; i < events.length; i++) {
+            var npcName = events[i].event().name; // 이벤트의 이름을 NPC의 이름으로 사용
+            if (npcName && npcName !== "Custom Event" && !npcName.match(/^\[.*\]$/) && !npcName.match(/^\{.*\}$/)) {
+                // 이름이 "Custom Event"가 아니고 [] 또는 {}로 감싸져 있지 않은 경우에만 네임태그 생성
+                var nameLabel = new Sprite_NameLabel(npcName, events[i], withFadeIn);
+                this._spriteset._tilemap.addChild(nameLabel); // Spriteset_Map의 타일맵 위에 이름표 추가
+                this._npcNameLabels.push(nameLabel); // 이름표 스프라이트를 배열에 저장
+            }
         }
-    }
-};
-
-    
+    };
 
     function Sprite_NameLabel() {
         this.initialize.apply(this, arguments);
@@ -28,7 +35,7 @@ Scene_Map.prototype.createNpcNameLabels = function() {
     Sprite_NameLabel.prototype = Object.create(Sprite.prototype);
     Sprite_NameLabel.prototype.constructor = Sprite_NameLabel;
 
-    Sprite_NameLabel.prototype.initialize = function(npcName, event) {
+    Sprite_NameLabel.prototype.initialize = function(npcName, event, withFadeIn) {
         Sprite.prototype.initialize.call(this);
         this._name = npcName; // NPC의 이름으로 설정
         this._event = event; // 이벤트 객체 저장 (NPC 위치 추적용)
@@ -36,7 +43,28 @@ Scene_Map.prototype.createNpcNameLabels = function() {
         this.bitmap.fontFace = Window_Base.prototype.standardFontFace; // 기본 시스템 폰트 설정
         this.bitmap.fontSize = 12; // 폰트 크기 설정
         this.bitmap.textColor = "#ffffff"; // 폰트 색상 설정
-        this.update();
+        this.opacity = 0; // 처음에는 투명하게 설정
+
+        this.updatePosition();
+        this.updateText();
+
+        if (withFadeIn) {
+            this.fadeIn(); // 페이드인 애니메이션 시작
+        } else {
+            this.opacity = 255; // 페이드인이 없을 경우 바로 완전 불투명으로 설정
+        }
+    };
+
+    Sprite_NameLabel.prototype.fadeIn = function() {
+        var fadeSpeed = 5; // 투명도 증가 속도 (프레임당 5씩 증가)
+
+        var fadeInterval = setInterval(() => {
+            this.opacity += fadeSpeed;
+            if (this.opacity >= 255) {
+                this.opacity = 255;
+                clearInterval(fadeInterval); // 투명도가 최대치에 도달하면 애니메이션 종료
+            }
+        }, 16); // 약 60FPS로 16ms마다 호출
     };
 
     Sprite_NameLabel.prototype.update = function() {
@@ -48,8 +76,8 @@ Scene_Map.prototype.createNpcNameLabels = function() {
     Sprite_NameLabel.prototype.updatePosition = function() {
         var screenX = this._event.screenX(); // NPC의 화면 X 좌표
         var screenY = this._event.screenY(); // NPC의 화면 Y 좌표
-        this.x = screenX - this.width / 2; // 이름표의 X 좌표를 NPC의 X 좌표에 맞춤
-        this.y = screenY; 
+        this.x = screenX - this.bitmap.width / 2; // 이름표의 X 좌표를 NPC의 X 좌표에 맞춤
+        this.y = screenY; // 
     };
 
     Sprite_NameLabel.prototype.updateText = function() {

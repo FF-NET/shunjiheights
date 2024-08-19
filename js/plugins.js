@@ -17,6 +17,7 @@ var $plugins =
 {"name":"MMO_LoginForm","status":true,"description":"MMORPG Maker MV - Login Form","parameters":{}},
 {"name":"MMO_Overhead","status":false,"description":"Add name over actors name","parameters":{}},
 {"name":"CacheOverride","status":true,"description":"This allows to force users to re-load old files","parameters":{"gameVersion":"1.0.0"}},
+{"name":"gpt_playerloginFade","status":true,"description":"","parameters":{}},
 {"name":"delete_menuui","status":true,"description":"","parameters":{}},
 {"name":"TDDP_PixelPerfect","status":true,"description":"1.1.1 Enable pixel perfect scaling mode for your game","parameters":{"enableIngameOptions":"false","labels":"","en":"Pixel Perfect Mode","ja":"ピクセルパーフェクトモード","zh":"像素完美模式","ko":"픽셀 퍼펙트 모드","ru":"Режим Pixel Perfect"}},
 {"name":"GALV_DisableDash","status":true,"description":"Disable dash in your game.","parameters":{"Disable Option":"true"}},
