@@ -33,7 +33,7 @@
 
         this._npcMarkers = []; // NPC 마커들을 저장할 배열
         this._eventMarkers = []; // 일반 이벤트 마커들을 저장할 배열
-        this._otherPlayerMarkers = []; // 다른 플레이어 마커들을 저장할 배열
+        this._otherPlayerMarkers = {}; // 다른 플레이어 마커들을 저장할 객체
 
         this._minimapScaleX = minimapWidth / mapWidth; // X축 비율 계산
         this._minimapScaleY = minimapHeight / mapHeight; // Y축 비율 계산
@@ -63,16 +63,11 @@
     };
 
     Scene_Map.prototype.createMarkers = function() {
-        // 모든 이벤트를 가져옴
-        var events = $gameMap.events(); 
+        var events = $gameMap.events(); // 현재 맵의 모든 이벤트 가져오기
 
+        // 이벤트와 NPC의 마커 생성
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
-
-            // 이벤트 이름이 {}로 감싸져 있는 경우 미니맵에 표시하지 않음
-            if (event.event().name.match(/^\{.*\}$/)) {
-                continue;
-            }
 
             // 이벤트의 종류에 따라 마커 색상 설정
             if (event.event().name.match(/^\[.*\]$/)) {
@@ -81,8 +76,8 @@
                 eventMarker.bitmap.fillRect(0, 0, 4, 4, '#0000ff'); // 파란색
                 this._spriteset.addChild(eventMarker);
                 this._eventMarkers.push(eventMarker);
-            } else {
-                // 일반 NPC는 초록색 마커로 표시
+            } else if (!event.event().name.match(/^\{.*\}$/)) {
+                // 일반 NPC는 초록색 마커로 표시, {}로 감싸지지 않은 이벤트만 표시
                 var npcMarker = new Sprite(new Bitmap(4, 4));
                 npcMarker.bitmap.fillRect(0, 0, 4, 4, '#00ff00'); // 초록색
                 this._spriteset.addChild(npcMarker);
@@ -90,7 +85,7 @@
             }
         }
 
-        // MMO_Core_Players.Players에서 각 플레이어에 대한 마커 생성
+        // 다른 플레이어들의 마커 생성
         for (var id in MMO_Core_Players.Players) {
             if (MMO_Core_Players.Players.hasOwnProperty(id)) {
                 var player = MMO_Core_Players.Players[id];
@@ -99,7 +94,7 @@
                 var otherPlayerMarker = new Sprite(new Bitmap(4, 4));
                 otherPlayerMarker.bitmap.fillRect(0, 0, 4, 4, '#ffa500'); // 주황색
                 this._spriteset.addChild(otherPlayerMarker);
-                this._otherPlayerMarkers.push(otherPlayerMarker);
+                this._otherPlayerMarkers[id] = otherPlayerMarker;
             }
         }
     };
@@ -142,19 +137,17 @@
         }
 
         // 다른 플레이어들의 마커 위치 업데이트
-        var index = 0;
         for (var id in MMO_Core_Players.Players) {
             if (MMO_Core_Players.Players.hasOwnProperty(id)) {
                 var player = MMO_Core_Players.Players[id];
                 var otherPlayerX = player.x * this._minimapScaleX;
                 var otherPlayerY = player.y * this._minimapScaleY;
 
-                if (this._otherPlayerMarkers[index]) {
-                    var marker = this._otherPlayerMarkers[index];
+                if (this._otherPlayerMarkers[id]) {
+                    var marker = this._otherPlayerMarkers[id];
                     marker.x = otherPlayerX + this._minimapSprite.x;
                     marker.y = otherPlayerY + this._minimapSprite.y;
                 }
-                index++;
             }
         }
 
