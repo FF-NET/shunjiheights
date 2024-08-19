@@ -72,6 +72,11 @@
             var eventName = event.event().name;
             var eventId = event.eventId();
 
+            // {}로 감싸진 이벤트는 표시하지 않음
+            if (eventName.match(/^\{.*\}$/)) {
+                continue;
+            }
+
             // 파란색 마커: 이름이 []로 감싸진 이벤트
             if (eventName.match(/^\[.*\]$/)) {
                 var eventMarker = new Sprite(new Bitmap(4, 4));
@@ -145,28 +150,31 @@
         }
 
         // 다른 플레이어들의 마커 위치 업데이트
-        for (var id in MMO_Core_Players.Players) {
+        for (var id in this._otherPlayerMarkers) {
             if (MMO_Core_Players.Players.hasOwnProperty(id)) {
                 var player = MMO_Core_Players.Players[id];
                 var otherPlayerX = player.x * this._minimapScaleX;
                 var otherPlayerY = player.y * this._minimapScaleY;
 
-                if (this._otherPlayerMarkers[id]) {
-                    var marker = this._otherPlayerMarkers[id];
+                var marker = this._otherPlayerMarkers[id];
 
-                    // 이전 위치의 마커 제거 (배경색으로 덮어씀)
-                    var prevPos = this._otherPlayerPreviousPositions[id];
-                    var prevMiniX = prevPos.x * this._minimapScaleX;
-                    var prevMiniY = prevPos.y * this._minimapScaleY;
-                    this._minimapSprite.bitmap.clearRect(prevMiniX, prevMiniY, 4, 4); // 이전 위치 지우기
+                // 이전 위치의 마커 제거 (배경색으로 덮어씀)
+                var prevPos = this._otherPlayerPreviousPositions[id];
+                var prevMiniX = prevPos.x * this._minimapScaleX;
+                var prevMiniY = prevPos.y * this._minimapScaleY;
+                this._minimapSprite.bitmap.clearRect(prevMiniX, prevMiniY, 4, 4); // 이전 위치 지우기
 
-                    // 새로운 위치에 마커 갱신
-                    marker.x = otherPlayerX + this._minimapSprite.x;
-                    marker.y = otherPlayerY + this._minimapSprite.y;
+                // 새로운 위치에 마커 갱신
+                marker.x = otherPlayerX + this._minimapSprite.x;
+                marker.y = otherPlayerY + this._minimapSprite.y;
 
-                    // 위치 업데이트
-                    this._otherPlayerPreviousPositions[id] = { x: player.x, y: player.y };
-                }
+                // 위치 업데이트
+                this._otherPlayerPreviousPositions[id] = { x: player.x, y: player.y };
+            } else {
+                // 플레이어가 존재하지 않으면 마커 제거
+                this._spriteset.removeChild(this._otherPlayerMarkers[id]);
+                delete this._otherPlayerMarkers[id];
+                delete this._otherPlayerPreviousPositions[id];
             }
         }
 
