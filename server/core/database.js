@@ -21,10 +21,10 @@ exports.initialize = function(callback) {
     // IMPORTANT : DO NOT TOUCH THIS
         const initialServerConfig = {
             port: 8097,
-            passwordRequired: false,
+            passwordRequired: true,
             newPlayerDetails: {
                 permission: 0,
-                mapId: 1,
+                mapId: 3,
                 skin: {
                     characterIndex: 0,
                     characterName: "Actor1",
@@ -32,8 +32,8 @@ exports.initialize = function(callback) {
                     faceName: "Actor1",
                     faceIndex: 0
                 },
-                x: 5,
-                y: 5
+                x: 15,
+                y: 15
             },
             globalSwitches: {
             },

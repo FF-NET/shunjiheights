@@ -7,7 +7,7 @@ var $plugins =
 {"name":"OrangeCustomEventCreator","status":true,"description":"This plugin Will let you create virtual events with script calls","parameters":{}},
 {"name":"MMO_Core","status":true,"description":"MMORPG Maker MV - Core","parameters":{"Server Location":"http://218.38.52.18:8097/"}},
 {"name":"MMO_ServerSideMaps","status":false,"description":"MMORPG Maker MV - Server Side Maps","parameters":{}},
-{"name":"MMO_Core_Player","status":true,"description":"MMORPG Maker MV - Core Handling Player","parameters":{"Mouse Movements":"false","Use Native Respawn":"false"}},
+{"name":"MMO_Core_Player","status":true,"description":"MMORPG Maker MV - Core Handling Player","parameters":{"Mouse Movements":"true","Use Native Respawn":"true"}},
 {"name":"MMO_Core_Players","status":true,"description":"MMORPG Maker MV - Core Handling Players","parameters":{}},
 {"name":"MMO_Core_NPCs","status":false,"description":"MMORPG Maker MV - Core Handling Sync NPCs","parameters":{}},
 {"name":"MMO_Core_Party","status":true,"description":"MMORPG Maker MV - Core Handling Parties","parameters":{}},
