@@ -926,7 +926,7 @@ Graphics._centerElement = function(element) {
     element.style.borderRightStyle = "double";
     element.style.borderBottomStyle = "double";
     element.style.borderLeftStyle = "double";
-    element.style.borderRadius = "15px";
+    element.style.borderRadius = "0px";
     
 };
 
