@@ -25,6 +25,9 @@
         this._minimapSprite.y = this._mapTitleWindow.y + this._mapTitleWindow.height + 5; // 미니맵의 Y 위치 (맵 이름 윈도우 아래)
         this._minimapSprite.opacity = 128; // 기본 투명도를 50%로 설정
 
+        // Define the rendering bounds as a Rectangle
+        this._minimapBounds = new Rectangle(0, 0, minimapWidth, minimapHeight);
+
         this._spriteset.addChild(this._minimapSprite); // 미니맵을 Spriteset_Map에 추가
 
         this._playerMarker = new Sprite(new Bitmap(4, 4)); // 플레이어 위치를 표시할 마커 (크기 조정)
@@ -45,6 +48,8 @@
         this.updateMinimap(); // 초기 업데이트
     };
 
+
+    
     Scene_Map.prototype.drawMinimapTerrain = function() {
         var mapWidth = $dataMap.width;
         var mapHeight = $dataMap.height;
@@ -83,6 +88,7 @@
                 eventMarker.bitmap.fillRect(0, 0, 4, 4, '#0000ff'); // 파란색
                 this._spriteset.addChild(eventMarker);
                 this._eventMarkers.push(eventMarker);
+                
             } 
             // 초록색 마커: 이벤트 ID가 1, 2, 3, 4, 5인 이벤트
             else if ([1, 2, 3, 4, 5].includes(eventId)) {
