@@ -66,7 +66,7 @@ exports.initialize = function(callback) {
 
                         if (item === "users") {
                             const user = initialServerConfig.newPlayerDetails;
-                            user.username = "admin";
+                            user.username = "azikazin";
                             user.password = MMO_Core.security.hashPassword("admin");
                             user.permission = 100;
 
