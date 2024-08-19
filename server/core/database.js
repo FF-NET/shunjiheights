@@ -20,7 +20,7 @@ exports.initialize = function(callback) {
     onConnect(function(_err, conn) {
     // IMPORTANT : DO NOT TOUCH THIS
         const initialServerConfig = {
-            port: 8097,
+            port: 8096,
             passwordRequired: false,
             newPlayerDetails: {
                 permission: 0,
