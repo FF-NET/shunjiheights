@@ -199,65 +199,46 @@ function LoginForm() {
   };
 
   LoginForm.prototype.connectAttempt = function(){
-      const verifyPass = () => {
-          if (LoginForm.Parameters.allowAccountCreation) {
-              const pwdField = document.getElementById('inputPassword');
-              const pwdValidPass = !!pwdField.value.length;
-              const btnConnect = document.getElementById('btnConnect');
-              if (pwdValidPass) {
-                  btnConnect.classList.remove('disabled');
-                  return true;
-              } else {
-                  btnConnect.classList.add('disabled');
-                  return false;
-              }
-          } else {
-              return true;
-          }
-      };
+    var that = this;
 
-      if (!verifyPass()) return;
+    // guest00부터 guest10까지 중 하나의 아이디를 랜덤으로 선택
+    const guestNumber = Math.floor(Math.random() * 11).toString().padStart(2, '0'); // 00부터 10까지의 숫자
+    const guestUsername = `guest${guestNumber}`;
 
-      var that = this;
-      let payload = { username: document.getElementById("inputUsername").value };
-      if (LoginForm.Parameters.allowAccountCreation) {
-          payload.password = document.getElementById("inputPassword").value;
-      }
+    let payload = { username: guestUsername };
 
-      if (payload.username.length < 4 || payload.username.length >= 25) return this.displayError("Invalid username !");
-      if(payload.username.includes(" ")) return this.displayError("No spaces !");
-      if(!payload.username.match(/^(?=[a-zA-Z0-9\s]{2,25}$)(?=[a-zA-Z0-9\s])(?:([\w\s*?])\1?(?!\1))+$/)) return this.displayError("No special characters.");
+    // 서버와의 상호작용을 통해 로그인 시도
+    MMO_Core.socket.on("login_success", function(data){
+        if (data.err) return that.displayError("Error : " + data.err);
 
-      MMO_Core.socket.on("login_success", function(data){
-          if (data.err) return that.displayError("Error : " + data.err);
+        MMO_Core_Player.Player = data["msg"];
 
-          MMO_Core_Player.Player = data["msg"];
+        that.fadeOutAll();
+        DataManager.setupNewGame();
+        document.getElementById('LoginForm').style.display = 'none';
+        SceneManager.goto(Scene_Map);
+        MMO_Core.allowTouch = true;
 
-          that.fadeOutAll();
-          DataManager.setupNewGame();
+        setTimeout(async () => {
+            setTimeout(async () => MMO_Core.socket.emit("new_message", '/count'), 1);
+            MMO_Core.socket.emit("new_message", '/all logged in');
+        }, 1000);
 
-          document.getElementById('LoginForm').style.display = 'none';
+        return true;
+    });
 
-          SceneManager.goto(Scene_Map);
-          MMO_Core.allowTouch = true;
-          setTimeout(async () => {
-              setTimeout(async () => MMO_Core.socket.emit("new_message", '/count'), 1);
-              MMO_Core.socket.emit("new_message", '/all logged in');
-          }, 1000);
-          return true;
-      });
+    MMO_Core.socket.on("login_error", function(data) {
+        that.displayError(data.msg);      
+    });
 
-      MMO_Core.socket.on("login_error", function(data) {
-          that.displayError(data.msg);      
-      });
+    // If you're no longer connected to socket - retry connection and then continue
+    if (!MMO_Core.socket.connected) {
+        MMO_Core.socket.connect();
+    }
 
-      // If you're no longer connected to socket - retry connection and then continue
-      if (!MMO_Core.socket.connected) {
-          MMO_Core.socket.connect();
-      }
+    MMO_Core.socket.emit("login", payload);
+};
 
-      MMO_Core.socket.emit("login", payload);
-  };
 
   LoginForm.prototype.createBackground = function() {
       this._backSprite1 = new Sprite(ImageManager.loadTitle1($dataSystem.title1Name));
