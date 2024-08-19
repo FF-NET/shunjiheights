@@ -189,6 +189,36 @@
         this.updateMinimap(); // 플레이어가 움직일 때마다 미니맵 업데이트
     };
 
+        // 화면 갱신을 위한 추가 코드
+        Scene_Map.prototype.forceRefresh = function() {
+            this.createMarkers();  // 마커들을 다시 생성
+            this.updateMinimap();  // 미니맵 업데이트
+        };
+    
+        var _Scene_Map_start = Scene_Map.prototype.start;
+        Scene_Map.prototype.start = function() {
+            _Scene_Map_start.call(this);
+            setTimeout(() => {
+                this.forceRefresh();
+            }, 1000); // 맵 로드 후 1초 후 강제 갱신
+        };
+
+    // MMO_Core_Players.js에서 player_moving 이벤트 핸들러 수정
+    MMO_Core.socket.on('player_moving', function(data) {
+        if (!SceneManager._scene._spriteset || SceneManager._scene instanceof Scene_Battle) return;
+        if (MMO_Core_Players.Players[data.id] === undefined) return;
+
+        // 플레이어 위치 및 움직임 정보 업데이트
+        if (MMO_Core_Players.Players[data.id].x !== data.x || MMO_Core_Players.Players[data.id].y !== data.y) {
+            MMO_Core_Players.Players[data.id].setPosition(data.x, data.y);
+        }
+
+        // 해당 플레이어의 미니맵 갱신
+        if (SceneManager._scene instanceof Scene_Map) {
+            SceneManager._scene.updateMinimap();
+        }
+    });
+
     Scene_Map.prototype.setMapTitle = function(title) {
         if (this._mapTitleWindow) {
             this._mapTitleWindow.setCustomTitle(title);
