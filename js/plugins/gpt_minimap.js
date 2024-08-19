@@ -33,8 +33,6 @@
 
         this._npcMarkers = []; // NPC 마커들을 저장할 배열
         this._eventMarkers = []; // 일반 이벤트 마커들을 저장할 배열
-        this._otherPlayerMarkers = {}; // 다른 플레이어 마커들을 저장할 객체
-        this._otherPlayerPreviousPositions = {}; // 다른 플레이어들의 이전 위치를 저장할 객체
 
         this._minimapScaleX = minimapWidth / mapWidth; // X축 비율 계산
         this._minimapScaleY = minimapHeight / mapHeight; // Y축 비율 계산
@@ -64,50 +62,29 @@
     };
 
     Scene_Map.prototype.createMarkers = function() {
-        var events = $gameMap.events(); // 현재 맵의 모든 이벤트 가져오기
-
-        // 이벤트와 NPC의 마커 생성
+        var events = $gameMap.events(); // 현재 맵의 모든 이벤트(NPC 포함)를 가져옴
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
             var eventName = event.event().name;
             var eventId = event.eventId();
 
-            // {}로 감싸진 이벤트는 표시하지 않음
-            if (eventName.match(/^\{.*\}$/)) {
-                continue;
+            // 이벤트 이름이 {}로 감싸져 있는 경우 미니맵에 표시하지 않음
+            if (eventName && eventName.match(/^\{.*\}$/)) {
+                continue; // 이 이벤트를 건너뜀
             }
 
-            // 파란색 마커: 이름이 []로 감싸진 이벤트
-            if (eventName.match(/^\[.*\]$/)) {
+            if (eventName && eventName.match(/^\[.*\]$/)) {
+                // 이름이 []로 감싸져 있는 이벤트는 파란색 마커로 표시
                 var eventMarker = new Sprite(new Bitmap(4, 4));
                 eventMarker.bitmap.fillRect(0, 0, 4, 4, '#0000ff'); // 파란색
                 this._spriteset.addChild(eventMarker);
                 this._eventMarkers.push(eventMarker);
-            } 
-            // 초록색 마커: 이벤트 ID가 1, 2, 3, 4, 5인 이벤트
-            else if ([1, 2, 3, 4, 5].includes(eventId)) {
+            } else if ([1, 2, 3, 4, 5].includes(eventId)) {
+                // 이벤트 ID가 1, 2, 3, 4, 5인 이벤트는 초록색 마커로 표시
                 var npcMarker = new Sprite(new Bitmap(4, 4));
                 npcMarker.bitmap.fillRect(0, 0, 4, 4, '#00ff00'); // 초록색
                 this._spriteset.addChild(npcMarker);
                 this._npcMarkers.push(npcMarker);
-            }
-        }
-
-        // 다른 플레이어들의 마커 생성
-        for (var id in MMO_Core_Players.Players) {
-            if (MMO_Core_Players.Players.hasOwnProperty(id)) {
-                var player = MMO_Core_Players.Players[id];
-
-                // 주황색 마커 생성
-                if (!this._otherPlayerMarkers[id]) {
-                    var otherPlayerMarker = new Sprite(new Bitmap(4, 4));
-                    otherPlayerMarker.bitmap.fillRect(0, 0, 4, 4, '#ffa500'); // 주황색
-                    this._spriteset.addChild(otherPlayerMarker);
-                    this._otherPlayerMarkers[id] = otherPlayerMarker;
-                }
-
-                // 초기 위치 저장
-                this._otherPlayerPreviousPositions[id] = { x: player.x, y: player.y };
             }
         }
     };
@@ -122,60 +99,26 @@
         this._playerMarker.x = minimapX + this._minimapSprite.x; // 미니맵 내의 플레이어 마커 X 좌표 설정
         this._playerMarker.y = minimapY + this._minimapSprite.y; // 미니맵 내의 플레이어 마커 Y 좌표 설정
 
-        // 기존 NPC 및 이벤트 마커 위치 업데이트
         for (var i = 0; i < this._npcMarkers.length; i++) {
             var npc = $gameMap.events().filter(function(event) {
-                return [1, 2, 3, 4, 5].includes(event.eventId());
-            })[i];
-            if (npc) {
-                var npcX = npc.x * this._minimapScaleX;
-                var npcY = npc.y * this._minimapScaleY;
+                return [1, 2, 3, 4, 5].includes(event.eventId()) && !event.event().name.match(/^\[.*\]$/);
+            })[i]; // NPC 이벤트 가져오기
+            var npcX = npc.x * this._minimapScaleX;
+            var npcY = npc.y * this._minimapScaleY;
 
-                this._npcMarkers[i].x = npcX + this._minimapSprite.x;
-                this._npcMarkers[i].y = npcY + this._minimapSprite.y;
-            }
+            this._npcMarkers[i].x = npcX + this._minimapSprite.x; // 미니맵 내의 NPC 마커 X 좌표 설정
+            this._npcMarkers[i].y = npcY + this._minimapSprite.y; // 미니맵 내의 NPC 마커 Y 좌표 설정
         }
 
         for (var j = 0; j < this._eventMarkers.length; j++) {
             var event = $gameMap.events().filter(function(event) {
                 return event.event().name && event.event().name.match(/^\[.*\]$/);
-            })[j];
-            if (event) {
-                var eventX = event.x * this._minimapScaleX;
-                var eventY = event.y * this._minimapScaleY;
+            })[j]; // 이벤트 가져오기
+            var eventX = event.x * this._minimapScaleX;
+            var eventY = event.y * this._minimapScaleY;
 
-                this._eventMarkers[j].x = eventX + this._minimapSprite.x;
-                this._eventMarkers[j].y = eventY + this._minimapSprite.y;
-            }
-        }
-
-        // 다른 플레이어들의 마커 위치 업데이트
-        for (var id in this._otherPlayerMarkers) {
-            if (MMO_Core_Players.Players.hasOwnProperty(id)) {
-                var player = MMO_Core_Players.Players[id];
-                var otherPlayerX = player.x * this._minimapScaleX;
-                var otherPlayerY = player.y * this._minimapScaleY;
-
-                var marker = this._otherPlayerMarkers[id];
-
-                // 이전 위치의 마커 제거 (배경색으로 덮어씀)
-                var prevPos = this._otherPlayerPreviousPositions[id];
-                var prevMiniX = prevPos.x * this._minimapScaleX;
-                var prevMiniY = prevPos.y * this._minimapScaleY;
-                this._minimapSprite.bitmap.clearRect(prevMiniX, prevMiniY, 4, 4); // 이전 위치 지우기
-
-                // 새로운 위치에 마커 갱신
-                marker.x = otherPlayerX + this._minimapSprite.x;
-                marker.y = otherPlayerY + this._minimapSprite.y;
-
-                // 위치 업데이트
-                this._otherPlayerPreviousPositions[id] = { x: player.x, y: player.y };
-            } else {
-                // 플레이어가 존재하지 않으면 마커 제거
-                this._spriteset.removeChild(this._otherPlayerMarkers[id]);
-                delete this._otherPlayerMarkers[id];
-                delete this._otherPlayerPreviousPositions[id];
-            }
+            this._eventMarkers[j].x = eventX + this._minimapSprite.x; // 미니맵 내의 이벤트 마커 X 좌표 설정
+            this._eventMarkers[j].y = eventY + this._minimapSprite.y; // 미니맵 내의 이벤트 마커 Y 좌표 설정
         }
 
         this.updateMinimapOpacity(); // 플레이어와 미니맵의 충돌을 체크하여 투명도 변경
@@ -215,36 +158,6 @@
         _Scene_Map_update.call(this);
         this.updateMinimap(); // 플레이어가 움직일 때마다 미니맵 업데이트
     };
-
-    // 화면 갱신을 위한 추가 코드
-    Scene_Map.prototype.forceRefresh = function() {
-        this.createMarkers();  // 마커들을 다시 생성
-        this.updateMinimap();  // 미니맵 업데이트
-    };
-
-    var _Scene_Map_start = Scene_Map.prototype.start;
-    Scene_Map.prototype.start = function() {
-        _Scene_Map_start.call(this);
-        setTimeout(() => {
-            this.forceRefresh();
-        }, 1000); // 맵 로드 후 1초 후 강제 갱신
-    };
-
-    // MMO_Core_Players.js에서 player_moving 이벤트 핸들러 수정
-    MMO_Core.socket.on('player_moving', function(data) {
-        if (!SceneManager._scene._spriteset || SceneManager._scene instanceof Scene_Battle) return;
-        if (MMO_Core_Players.Players[data.id] === undefined) return;
-
-        // 플레이어 위치 및 움직임 정보 업데이트
-        if (MMO_Core_Players.Players[data.id].x !== data.x || MMO_Core_Players.Players[data.id].y !== data.y) {
-            MMO_Core_Players.Players[data.id].setPosition(data.x, data.y);
-        }
-
-        // 해당 플레이어의 미니맵 갱신
-        if (SceneManager._scene instanceof Scene_Map) {
-            SceneManager._scene.updateMinimap();
-        }
-    });
 
     Scene_Map.prototype.setMapTitle = function(title) {
         if (this._mapTitleWindow) {
@@ -291,10 +204,5 @@
         if (this._mapTitleWindow) {
             this._mapTitleWindow.refresh();
         }
-    };
-
-    // 동적으로 생성된 이벤트임을 표시하는 함수 추가
-    Game_Event.prototype.isDynamicEvent = function() {
-        return this._eventId >= $dataMap.events.length;
     };
 })();
