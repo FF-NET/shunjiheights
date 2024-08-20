@@ -9,7 +9,7 @@ var $plugins =
 {"name":"MMO_ServerSideMaps","status":false,"description":"MMORPG Maker MV - Server Side Maps","parameters":{}},
 {"name":"MMO_Core_Player","status":true,"description":"MMORPG Maker MV - Core Handling Player","parameters":{"Mouse Movements":"true","Use Native Respawn":"true"}},
 {"name":"MMO_Core_Players","status":true,"description":"MMORPG Maker MV - Core Handling Players","parameters":{}},
-{"name":"MMO_Core_NPCs","status":false,"description":"MMORPG Maker MV - Core Handling Sync NPCs","parameters":{}},
+{"name":"MMO_Core_NPCs","status":true,"description":"MMORPG Maker MV - Core Handling Sync NPCs","parameters":{}},
 {"name":"MMO_Core_Party","status":true,"description":"MMORPG Maker MV - Core Handling Parties","parameters":{}},
 {"name":"MMO_Core_Party_Combat","status":false,"description":"MMORPG Maker MV - Core Handling Combat in Party","parameters":{}},
 {"name":"MMO_Core_Bank","status":false,"description":"MMORPG Maker MV - Core Handling Bank","parameters":{}},
