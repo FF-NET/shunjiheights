@@ -172,11 +172,11 @@ function ChatBox() {
         break;
       case "BOTTOM CENTER":
         chatboxInput.style.left = "50vw";
-        chatboxInput.style.bottom = (offsetTop + 59) + "px";
+        chatboxInput.style.bottom = "353px";
         chatboxInput.style.transform = "translateX(-50%)";
         
         chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = (offsetTop + 85) + "px";
+        chatboxBox.style.bottom = "321px";
         chatboxBox.style.transform = "translateX(-50%)";
         break;
       case "BOTTOM RIGHT":
@@ -212,10 +212,8 @@ function generateTextField() {
   textField.type                  = 'text';
   textField.placeholder           = "모두에게";
   textField.style.position        = 'absolute';
-  textField.style.width           = 'calc(-13px + 30vw)';
-  textField.style.maxWidth        = '437px';
-  textField.style.minWidth        = '338px';
-  textField.style.height          = '20px';
+  textField.style.width           = '313px';
+  textField.style.height          = '26px';
   textField.style.zIndex          = "1000";
   textField.style.color           = "rgb(0, 0, 0)";
   textField.style.paddingLeft     = "8px";
@@ -242,9 +240,7 @@ function generateTextBox() {
   let textBox = document.createElement('div');
   textBox.id                    = 'chatbox_box';
   textBox.style.position        = 'absolute';
-  textBox.style.width           = '33vw';
-  textBox.style.maxWidth        = '450px';
-  textBox.style.minWidth        = '338px';
+  textBox.style.width           = '345px';
   textBox.style.height          = '44px';
   textBox.style.zIndex          = "1000";
   textBox.style.overflowY       = "auto";
