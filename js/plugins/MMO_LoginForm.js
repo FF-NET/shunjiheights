@@ -22,7 +22,6 @@
 function LoginForm() {
     this.initialize.apply(this, arguments);
   }
-  var storedUsername = '';
   
   (function() {  
     LoginForm.Parameters = PluginManager.parameters('MMO_LoginForm');
@@ -202,7 +201,6 @@ function LoginForm() {
   
     LoginForm.prototype.connectAttempt = function(){
       var that = this;
-      storedUsername = document.getElementById('inputUsername').value;
   
   // user000부터 user020까지 중 하나의 아이디를 랜덤으로 선택
   const userNumber = Math.floor(Math.random() * 1000).toString().padStart(3, '0'); // 000부터 020까지의 숫자

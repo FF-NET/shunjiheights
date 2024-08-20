@@ -15,8 +15,6 @@ function MMO_Core_Players() {
 (function () {
   MMO_Core_Players.Players = {};
 
-
-
   MMO_Core.socket.on("map_joined", function(data) {
     if (MMO_Core_Players.Players[data.id] !== undefined && $gameMap._events[MMO_Core_Players.Players[data.id]["_eventId"]] !== undefined) {
       $gameMap.eraseEvent(MMO_Core_Players.Players[data.id]["_eventId"]);
@@ -52,16 +50,6 @@ function MMO_Core_Players() {
       SceneManager._scene.updateMinimap(); // 미니맵 업데이트
     }
   });
-
- // 서버로부터 다른 플레이어의 storedname 정보 수신
- MMO_Core.socket.on('update_players', function(playersData) {
-  MMO_Core_Players.Players = playersData;
-});
-
-// playerId에 따라 storedname을 반환하는 함수
-MMO_Core_Players.getStoredNameById = function(playerId) {
-  return MMO_Core_Players.Players[playerId]?.storedUsername || "Unknown Player";
-};
 
   MMO_Core.socket.on("refresh_players_position", function(data) {
     MMO_Core.socket.emit("refresh_players_position", { id: data, playerData: MMO_Core_Player.getPlayerPos() });

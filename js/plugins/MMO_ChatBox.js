@@ -195,12 +195,12 @@ function ChatBox() {
   function blurOnMove(elem, blurredOpacity = 0.2) {
     document.body.addEventListener('keydown', () => {
       setTimeout(() => {
-        if ($gamePlayer.isMoving()) elem.style.opacity = blurredOpacity;
+      //  if ($gamePlayer.isMoving()) elem.style.opacity = blurredOpacity;
       }, 500);
     });
     document.body.addEventListener('keyup', () => {
       setTimeout(() => {
-        if (!$gamePlayer.isMoving()) elem.style.opacity = 1;
+   //     if (!$gamePlayer.isMoving()) elem.style.opacity = 1;
       }, 500);
     });
   }
@@ -210,19 +210,19 @@ function ChatBox() {
     let textField = document.createElement('input');
     textField.id                    = 'chatbox_input';
     textField.type                  = 'text';
-    textField.placeholder           = "Press Enter to talk";
+    textField.placeholder           = "모두에게";
     textField.style.position        = 'absolute';
     textField.style.width           = 'calc(50vw - 13px)';
     textField.style.maxWidth        = '437px';
     textField.style.minWidth        = '338px';
     textField.style.height          = '20px';
     textField.style.zIndex          = "1000";
-    textField.style.color           = "#fafafa";
+    textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
     textField.style.backgroundColor = 'rgba(0,0,0,0.6)';
     textField.style.transition      = "opacity .3s ease";
     textField.style.cursor          = 'pointer';
-    textField.style.borderColor     = textField.style.backgroundColor;
+    textField.style.borderRadius = "10px";
     textField.addEventListener('keydown', function(e){sendMessage(e)});
     textField.addEventListener('touchstart', function(e){handleTouch(e)});
     textField.addEventListener('focus', function(e){handleFocus(e)});
@@ -314,26 +314,50 @@ function ChatBox() {
 
   // Handle new messages
    // Handle new messages
-   MMO_Core.socket.on("new_message", async function(messageData) {
+  // 사용자 아이디와 닉네임을 매핑하는 객체
+const baseNicknames = [
+  '배고픈 관찰자', '귀염둥이 관찰자', '사랑스러운 관찰자', '긍정왕', 
+  '물총을 좋아하는 관찰자', '늦잠꾸러기', '오늘은 학교에 가기 싫은 관찰자',
+  '오늘 막 하늘에서 떨어진 관찰자', '쓰레기산 산책왕', '발명왕', 
+  '비밀을 알고 관찰자', '아무것도 모르는 관찰자', '수수께끼를 몰고 다니는 관찰자',
+  '존키벌레 전문 관찰자', '애니메이션 광', '메카닉 애호가', 
+  '특촬물 전문 관찰자', '하늘에서 오늘 떨어진 관찰자', '별 애호가', 
+  '위스키를 좋아하는 관찰자', '혼자 놀기의 달인', '초보 관찰자', 
+  '등대지기를 무서워하는 관찰자', '영화광', '지도 애호가', 
+  '우유 애호가', '나뭇잎을 좋아하는 관찰자', '요구르트에 진심인 관찰자', 
+  '이제 막 태어난 관찰자'
+];
+
+const nicknameMap = {};
+for (let i = 0; i < 1000; i++) {
+  const userKey = `user${i.toString().padStart(3, '0')}`;
+  const nicknameIndex = i % baseNicknames.length;  // baseNicknames 배열을 반복 사용
+  nicknameMap[userKey] = `도레핀 마을의 ${baseNicknames[nicknameIndex]}`;
+}
+
+MMO_Core.socket.on("new_message", async function(messageData) {
     let span = document.createElement("div");
     span.style.display     = "flex";
     span.style.padding     = '2px';
     span.style.color       = messageData.color;
     span.style.paddingLeft = '8px';
-    span.style.fontWeight  = '200';
+    span.style.fontWeight  = '120';
     span.style.fontFamily  = 'monoscape';
+    span.style.fontSize = '12px';
 
     const d = new Date();
     const time = (d.getHours().toString().length == 2 ? d.getHours() : '0' + d.getHours())  
                 + ':' + 
                 (d.getMinutes().toString().length == 2 ? d.getMinutes() : '0' + d.getMinutes());
 
-                
-                let storedUsername = MMO_Core_Players.getStoredNameById(messageData.playerId);
-                let customName = `도레핀 마을의 ${storedUsername}`;
-            
-                let message = document.createTextNode(time + " [" + customName + "] " + messageData["msg"]);
-                console.log(span, message);
+    let username = messageData["username"];
+
+    // 사용자 이름 변환
+    let customName = nicknameMap[username] || `도레핀 마을의 알 수 없는 관찰자`;
+
+    let message = document.createTextNode(customName + " :" + messageData["msg"]);
+    console.log(span, message);
+
     span.appendChild(message); 
     if (document.querySelector("#text_container")) {
       document.querySelector("#text_container").appendChild(span);
@@ -347,7 +371,7 @@ function ChatBox() {
         document.querySelector("#chatbox_input").blur();
       }
     }
-});
+  });
 
 
 
