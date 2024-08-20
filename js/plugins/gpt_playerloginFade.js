@@ -34,7 +34,7 @@
             setTimeout(() => {
                 // 플레이어를 특정 맵의 15, 15 위치로 이동하고 페이드아웃
                 const mapId = 3; // 이동할 맵 ID를 설정
-                const x = 15;
+                const x = 12;
                 const y = 15;
                 $gamePlayer.reserveTransfer(mapId, x, y, $gamePlayer.direction(), 0);
                 
