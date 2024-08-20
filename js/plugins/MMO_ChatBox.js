@@ -328,12 +328,12 @@ function ChatBox() {
                 + ':' + 
                 (d.getMinutes().toString().length == 2 ? d.getMinutes() : '0' + d.getMinutes());
 
-    let nickname = MMO_Core_Players.getNicknameById(messageData.playerId);
-    let customName = `도레핀 마을의 ${nickname}`;
-
-    let message = document.createTextNode(time + " [" + customName + "] " + messageData["msg"]);
-    console.log(span, message);
-
+                
+                let storedUsername = MMO_Core_Players.getStoredNameById(messageData.playerId);
+                let customName = `도레핀 마을의 ${storedUsername}`;
+            
+                let message = document.createTextNode(time + " [" + customName + "] " + messageData["msg"]);
+                console.log(span, message);
     span.appendChild(message); 
     if (document.querySelector("#text_container")) {
       document.querySelector("#text_container").appendChild(span);

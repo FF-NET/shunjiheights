@@ -52,6 +52,15 @@ MMO_Core.allowTouch = true;
     if(message.length <= 0) return;
     MMO_Core.socket.emit("new_message", message);
   }
+
+    // 서버에서 플레이어가 로그인할 때
+    MMO_Core.socket.on('player_login', function(data) {
+      // 로그인한 플레이어의 storedname과 ID를 저장
+      players[data.id] = { storedUsername: data.storedUsername };
+  
+      // 다른 모든 클라이언트에 이 정보를 전송
+      socket.broadcast.emit('update_players', players);
+  });
 })();
 
 

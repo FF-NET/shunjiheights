@@ -15,14 +15,7 @@ function MMO_Core_Players() {
 (function () {
   MMO_Core_Players.Players = {};
 
-  // 서버에서 플레이어가 로그인할 때
-  MMO_Core.socket.on('player_login', function(data) {
-  // 로그인한 플레이어의 닉네임과 ID 저장
-  players[data.id] = { nickname: data.nickname };
 
-  // 다른 모든 클라이언트에 이 정보를 전송
-  MMO_Core.socket.broadcast.emit('update_players', players);
-});
 
   MMO_Core.socket.on("map_joined", function(data) {
     if (MMO_Core_Players.Players[data.id] !== undefined && $gameMap._events[MMO_Core_Players.Players[data.id]["_eventId"]] !== undefined) {
@@ -60,13 +53,14 @@ function MMO_Core_Players() {
     }
   });
 
-   // 서버로부터 다른 플레이어 정보 수신
-   MMO_Core.socket.on('update_players', function(playersData) {
-    MMO_Core_Players.Players = playersData;
+ // 서버로부터 다른 플레이어의 storedname 정보 수신
+ MMO_Core.socket.on('update_players', function(playersData) {
+  MMO_Core_Players.Players = playersData;
 });
 
-MMO_Core_Players.getNicknameById = function(playerId) {
-    return MMO_Core_Players.Players[playerId]?.nickname || "Unknown Player";
+// playerId에 따라 storedname을 반환하는 함수
+MMO_Core_Players.getStoredNameById = function(playerId) {
+  return MMO_Core_Players.Players[playerId]?.storedUsername || "Unknown Player";
 };
 
   MMO_Core.socket.on("refresh_players_position", function(data) {
