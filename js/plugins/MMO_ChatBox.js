@@ -216,7 +216,7 @@ function ChatBox() {
     textField.type                  = 'text';
     textField.placeholder           = "모두에게";
     textField.style.position        = 'absolute';
-    textField.style.width           = '313px';
+    textField.style.width           = '335px';
     textField.style.height          = '21px';
     textField.style.zIndex          = "1000";
     textField.style.color           = "rgb(0, 0, 0)";
