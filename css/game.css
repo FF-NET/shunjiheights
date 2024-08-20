@@ -116,3 +116,10 @@ body {
         transform: rotate(360deg);
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+    #chatbox_input, #chatbox_box {
+      display: none !important;
+    }
+  }
