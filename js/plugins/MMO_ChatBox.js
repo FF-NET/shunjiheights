@@ -219,7 +219,7 @@ function ChatBox() {
     textField.style.zIndex          = "1000";
     textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
-    textField.style.backgroundColor = 'rgba(0,0,0,0.6)';
+    textField.style.backgroundColor = "background-color: #ffffff";
     textField.style.transition      = "opacity .3s ease";
     textField.style.cursor          = 'pointer';
     textField.style.borderRadius = "10px";
@@ -244,10 +244,11 @@ function ChatBox() {
     textBox.style.overflowY       = "auto";
     textBox.style.borderRadius    = "3px";
     textBox.style.color           = "#fafafa";
-    textBox.style.backgroundColor = 'rgba(0,0,0,0.3)';
+    textBox.style.backgroundColor = 'rgba(0,0,0,0.25)';
     textBox.style.transition      = "opacity .3s ease";
     textBox.style.pointerEvents   = "none";
     textBox.style.transition      = 'all .1s ease-out';
+  
     textBox.style.borderColor     = textBox.style.backgroundColor;
     document.body.appendChild(textBox);
     let textZone = document.createElement('div');
@@ -288,7 +289,7 @@ function ChatBox() {
 
     (ChatBox.isFocused) ? $gameSystem.disableMenu() : $gameSystem.enableMenu();
     document.querySelector("#chatbox_box").style.overflowY = (ChatBox.isFocused) ? "scroll" : "hidden";
-    document.querySelector("#chatbox_box").style.backgroundColor = (ChatBox.isFocused) ? 'rgba(0,0,0,0.8)' : 'rgba(0,0,0,0.1)';
+    document.querySelector("#chatbox_box").style.backgroundColor = (ChatBox.isFocused) ? 'rgba(0,0,0,0.45)' : 'rgba(0,0,0,0.25)';
     document.querySelector("#chatbox_box").style.height = (ChatBox.isFocused) ? '164px' : '44px';
     document.querySelector("#chatbox_box").style.pointerEvents = (ChatBox.isFocused) ? 'initial' : 'none';
     document.querySelector("#chatbox_box").scrollTop = document.querySelector("#chatbox_box").scrollHeight;
@@ -339,7 +340,7 @@ MMO_Core.socket.on("new_message", async function(messageData) {
     let span = document.createElement("div");
     span.style.display     = "flex";
     span.style.padding     = '2px';
-    span.style.color       = messageData.color;
+    span.style.color       = "rgb(248, 248, 248)";
     span.style.paddingLeft = '8px';
     span.style.fontWeight  = '120';
     span.style.fontFamily  = 'monoscape';
