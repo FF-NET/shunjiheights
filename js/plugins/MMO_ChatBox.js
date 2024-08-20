@@ -313,30 +313,43 @@ function ChatBox() {
   // ---------------------------------------
 
   // Handle new messages
-  MMO_Core.socket.on("new_message", async function(messageData) {
+   // Handle new messages
+   MMO_Core.socket.on("new_message", async function(messageData) {
     let span = document.createElement("div");
-        span.style.display     = "flex";
-        span.style.padding     = '2px';
-        span.style.color       = messageData.color;
-        span.style.paddingLeft = '8px';
-        span.style.fontWeight  = '200';
-        span.style.fontFamily  = 'monoscape';
+    span.style.display     = "flex";
+    span.style.padding     = '2px';
+    span.style.color       = messageData.color;
+    span.style.paddingLeft = '8px';
+    span.style.fontWeight  = '200';
+    span.style.fontFamily  = 'monoscape';
 
     const d = new Date();
-    const time = ( d.getHours().toString().length == 2 ? d.getHours() : '0' + d.getHours() )  
-                  + ':' + 
-                  ( d.getMinutes().toString().length == 2 ? d.getMinutes() : '0' + d.getMinutes() );
-    let message = document.createTextNode(time + " [" + messageData["username"] + "] " + messageData["msg"]);
-    console.log(span,message);
+    const time = (d.getHours().toString().length == 2 ? d.getHours() : '0' + d.getHours())  
+                + ':' + 
+                (d.getMinutes().toString().length == 2 ? d.getMinutes() : '0' + d.getMinutes());
+
+    let nickname = MMO_Core_Players.getNicknameById(messageData.playerId);
+    let customName = `도레핀 마을의 ${nickname}`;
+
+    let message = document.createTextNode(time + " [" + customName + "] " + messageData["msg"]);
+    console.log(span, message);
 
     span.appendChild(message); 
-    if (document.querySelector("#text_container")) document.querySelector("#text_container").appendChild(span);
-    if (document.querySelector("#chatbox_box")) document.querySelector("#chatbox_box").scrollTop = document.querySelector("#chatbox_box").scrollHeight;
-
-    if(!ChatBox.isFocused) {
-      if (document.querySelector("#chatbox_input")) document.querySelector("#chatbox_input").blur();
+    if (document.querySelector("#text_container")) {
+      document.querySelector("#text_container").appendChild(span);
     }
-  })
+    if (document.querySelector("#chatbox_box")) {
+      document.querySelector("#chatbox_box").scrollTop = document.querySelector("#chatbox_box").scrollHeight;
+    }
+
+    if (!ChatBox.isFocused) {
+      if (document.querySelector("#chatbox_input")) {
+        document.querySelector("#chatbox_input").blur();
+      }
+    }
+});
+
+
 
   document.addEventListener('keydown', function(e) {
     if(!ChatBox.isGenerated) return;
@@ -355,3 +368,4 @@ function ChatBox() {
     }
   })
 })();
+

@@ -15,6 +15,15 @@ function MMO_Core_Players() {
 (function () {
   MMO_Core_Players.Players = {};
 
+  // 서버에서 플레이어가 로그인할 때
+  MMO_Core.socket.on('player_login', function(data) {
+  // 로그인한 플레이어의 닉네임과 ID 저장
+  players[data.id] = { nickname: data.nickname };
+
+  // 다른 모든 클라이언트에 이 정보를 전송
+  MMO_Core.socket.broadcast.emit('update_players', players);
+});
+
   MMO_Core.socket.on("map_joined", function(data) {
     if (MMO_Core_Players.Players[data.id] !== undefined && $gameMap._events[MMO_Core_Players.Players[data.id]["_eventId"]] !== undefined) {
       $gameMap.eraseEvent(MMO_Core_Players.Players[data.id]["_eventId"]);
@@ -50,6 +59,15 @@ function MMO_Core_Players() {
       SceneManager._scene.updateMinimap(); // 미니맵 업데이트
     }
   });
+
+   // 서버로부터 다른 플레이어 정보 수신
+   MMO_Core.socket.on('update_players', function(playersData) {
+    MMO_Core_Players.Players = playersData;
+});
+
+MMO_Core_Players.getNicknameById = function(playerId) {
+    return MMO_Core_Players.Players[playerId]?.nickname || "Unknown Player";
+};
 
   MMO_Core.socket.on("refresh_players_position", function(data) {
     MMO_Core.socket.emit("refresh_players_position", { id: data, playerData: MMO_Core_Player.getPlayerPos() });
@@ -101,3 +119,9 @@ function MMO_Core_Players() {
     MMO_Core.socket.emit("refresh_players_on_map");
   };
 })();
+
+Sprite_Character.prototype.findCharacterSprite = function(event) {
+  return SceneManager._scene._spriteset._characterSprites.find(function(sprite) {
+      return sprite._character === event;
+  });
+};
