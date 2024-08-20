@@ -176,7 +176,7 @@ function ChatBox() {
         chatboxInput.style.transform = "translateX(-50%)";
         
         chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = (offsetTop + 95) + "px";
+        chatboxBox.style.bottom = "352px";
         chatboxBox.style.transform = "translateX(-50%)";
         break;
       case "BOTTOM RIGHT":
