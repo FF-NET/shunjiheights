@@ -172,11 +172,11 @@ function ChatBox() {
         break;
       case "BOTTOM CENTER":
         chatboxInput.style.left = "50vw";
-        chatboxInput.style.bottom = "353px";
+        chatboxInput.style.bottom = "161px";
         chatboxInput.style.transform = "translateX(-50%)";
         
         chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = "321px";
+        chatboxBox.style.bottom = "193px";
         chatboxBox.style.transform = "translateX(-50%)";
         break;
       case "BOTTOM RIGHT":
