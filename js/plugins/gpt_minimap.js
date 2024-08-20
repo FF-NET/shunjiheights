@@ -77,14 +77,7 @@
             var eventName = event.event().name;
             var eventId = event.eventId();
 
-                    // 이벤트 위치 확인 로그
-        console.log(`Event ID: ${eventId}, Name: ${eventName}, X: ${event.x}, Y: ${event.y}`);
-
-        // 위치가 0, 0인 이벤트는 무시
-        if (event.x === 0 && event.y === 0) {
-            console.log(`Ignoring event at (0,0) - Event ID: ${eventId}`);
-            continue;
-        }
+            
 
             // {}로 감싸진 이벤트는 표시하지 않음
             if (eventName.match(/^\{.*\}$/)) {
@@ -241,13 +234,13 @@
         this.updateMinimap();  // 미니맵 업데이트
     };
 
-    var _Scene_Map_start = Scene_Map.prototype.start;
+    /* var _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
         setTimeout(() => {
             this.forceRefresh();
         }, 1000); // 맵 로드 후 1초 후 강제 갱신
-    };
+    }; */
 
     // MMO_Core_Players.js에서 player_moving 이벤트 핸들러 수정
     MMO_Core.socket.on('player_moving', function(data) {
