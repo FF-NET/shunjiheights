@@ -228,6 +228,11 @@ function ChatBox() {
     textField.addEventListener('focus', function(e){handleFocus(e)});
     textField.addEventListener('focusout', function(e){handleFocus(e)});
     document.body.appendChild(textField);
+      // Add media query to hide on mobile
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+  if (mediaQuery.matches) {
+    textField.style.display = 'none';
+  }
     blurOnMove(textField,0);
   }
 
@@ -257,6 +262,11 @@ function ChatBox() {
     textZone.style.bottom         = '0';
     textZone.style.width          = '100%';
     textBox.appendChild(textZone);
+      // Add media query to hide on mobile
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+  if (mediaQuery.matches) {
+    textField.style.display = 'none';
+  }
     blurOnMove(textBox);
   }
 
