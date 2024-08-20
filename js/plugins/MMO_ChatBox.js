@@ -212,10 +212,8 @@ function ChatBox() {
     textField.type                  = 'text';
     textField.placeholder           = "모두에게";
     textField.style.position        = 'absolute';
-    textField.style.width           = 'calc(50vw - 13px)';
-    textField.style.maxWidth        = '437px';
-    textField.style.minWidth        = '338px';
-    textField.style.height          = '20px';
+    textField.style.width           = '313px';
+    textField.style.height          = '26px';
     textField.style.zIndex          = "1000";
     textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
@@ -241,9 +239,7 @@ function ChatBox() {
     let textBox = document.createElement('div');
     textBox.id                    = 'chatbox_box';
     textBox.style.position        = 'absolute';
-    textBox.style.width           = '50vw';
-    textBox.style.maxWidth        = '450px';
-    textBox.style.minWidth        = '338px';
+    textBox.style.width           = '345px';
     textBox.style.height          = '44px';
     textBox.style.zIndex          = "1000";
     textBox.style.overflowY       = "auto";
