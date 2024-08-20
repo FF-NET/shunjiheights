@@ -206,69 +206,71 @@ function ChatBox() {
   }
   
   // Generate the main chatbox that contains messages
-  function generateTextField() {
-    let textField = document.createElement('input');
-    textField.id                    = 'chatbox_input';
-    textField.type                  = 'text';
-    textField.placeholder           = "모두에게";
-    textField.style.position        = 'absolute';
-    textField.style.width           = 'calc(50vw - 13px)';
-    textField.style.maxWidth        = '437px';
-    textField.style.minWidth        = '338px';
-    textField.style.height          = '20px';
-    textField.style.zIndex          = "1000";
-    textField.style.color           = "rgb(0, 0, 0)";
-    textField.style.paddingLeft     = "8px";
-    textField.style.backgroundColor = "background-color: #ffffff";
-    textField.style.transition      = "opacity .3s ease";
-    textField.style.cursor          = 'pointer';
-    textField.style.borderRadius = "10px";
-    textField.addEventListener('keydown', function(e){sendMessage(e)});
-    textField.addEventListener('touchstart', function(e){handleTouch(e)});
-    textField.addEventListener('focus', function(e){handleFocus(e)});
-    textField.addEventListener('focusout', function(e){handleFocus(e)});
-    document.body.appendChild(textField);
-      // Add media query to hide on mobile
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-  if (mediaQuery.matches) {
+function generateTextField() {
+  let textField = document.createElement('input');
+  textField.id                    = 'chatbox_input';
+  textField.type                  = 'text';
+  textField.placeholder           = "모두에게";
+  textField.style.position        = 'absolute';
+  textField.style.width           = 'calc(50vw - 13px)';
+  textField.style.maxWidth        = '437px';
+  textField.style.minWidth        = '338px';
+  textField.style.height          = '20px';
+  textField.style.zIndex          = "1000";
+  textField.style.color           = "rgb(0, 0, 0)";
+  textField.style.paddingLeft     = "8px";
+  textField.style.backgroundColor = "background-color: #ffffff";
+  textField.style.transition      = "opacity .3s ease";
+  textField.style.cursor          = 'pointer';
+  textField.style.borderRadius    = "10px";
+  textField.addEventListener('keydown', function(e){sendMessage(e)});
+  textField.addEventListener('touchstart', function(e){handleTouch(e)});
+  textField.addEventListener('focus', function(e){handleFocus(e)});
+  textField.addEventListener('focusout', function(e){handleFocus(e)});
+  document.body.appendChild(textField);
+
+  // Check screen width and apply display:none for mobile
+  if (window.innerWidth <= 768) {
     textField.style.display = 'none';
-  }
-    blurOnMove(textField,0);
   }
 
-  // Generate the textbox
-  function generateTextBox() {
-    let textBox = document.createElement('div');
-    textBox.id                    = 'chatbox_box';
-    textBox.style.position        = 'absolute';
-    textBox.style.width           = '50vw';
-    textBox.style.maxWidth        = '450px';
-    textBox.style.minWidth        = '338px';
-    textBox.style.height          = '44px';
-    textBox.style.zIndex          = "1000";
-    textBox.style.overflowY       = "auto";
-    textBox.style.borderRadius    = "3px";
-    textBox.style.color           = "#fafafa";
-    textBox.style.backgroundColor = 'rgba(0,0,0,0.25)';
-    textBox.style.transition      = "opacity .3s ease";
-    textBox.style.pointerEvents   = "none";
-    textBox.style.transition      = 'all .1s ease-out';
+  blurOnMove(textField, 0);
+}
+
+// Generate the textbox
+function generateTextBox() {
+  let textBox = document.createElement('div');
+  textBox.id                    = 'chatbox_box';
+  textBox.style.position        = 'absolute';
+  textBox.style.width           = '50vw';
+  textBox.style.maxWidth        = '450px';
+  textBox.style.minWidth        = '338px';
+  textBox.style.height          = '44px';
+  textBox.style.zIndex          = "1000";
+  textBox.style.overflowY       = "auto";
+  textBox.style.borderRadius    = "3px";
+  textBox.style.color           = "#fafafa";
+  textBox.style.backgroundColor = 'rgba(0,0,0,0.25)';
+  textBox.style.transition      = "opacity .3s ease";
+  textBox.style.pointerEvents   = "none";
+  textBox.style.transition      = 'all .1s ease-out';
+  textBox.style.borderColor     = textBox.style.backgroundColor;
+  document.body.appendChild(textBox);
   
-    textBox.style.borderColor     = textBox.style.backgroundColor;
-    document.body.appendChild(textBox);
-    let textZone = document.createElement('div');
-    textZone.id                   = 'text_container';
-    textZone.style.position       = 'absolute';
-    textZone.style.bottom         = '0';
-    textZone.style.width          = '100%';
-    textBox.appendChild(textZone);
-      // Add media query to hide on mobile
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-  if (mediaQuery.matches) {
-    textField.style.display = 'none';
+  let textZone = document.createElement('div');
+  textZone.id                   = 'text_container';
+  textZone.style.position       = 'absolute';
+  textZone.style.bottom         = '0';
+  textZone.style.width          = '100%';
+  textBox.appendChild(textZone);
+
+  // Check screen width and apply display:none for mobile
+  if (window.innerWidth <= 768) {
+    textBox.style.display = 'none';
   }
-    blurOnMove(textBox);
-  }
+
+  blurOnMove(textBox);
+}
 
   // Handle sending message
   function sendMessage(e) {
