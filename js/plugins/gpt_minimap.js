@@ -69,11 +69,22 @@
     Scene_Map.prototype.createMarkers = function() {
         var events = $gameMap.events(); // 현재 맵의 모든 이벤트 가져오기
 
+
+
         // 이벤트와 NPC의 마커 생성
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
             var eventName = event.event().name;
             var eventId = event.eventId();
+
+                    // 이벤트 위치 확인 로그
+        console.log(`Event ID: ${eventId}, Name: ${eventName}, X: ${event.x}, Y: ${event.y}`);
+
+        // 위치가 0, 0인 이벤트는 무시
+        if (event.x === 0 && event.y === 0) {
+            console.log(`Ignoring event at (0,0) - Event ID: ${eventId}`);
+            continue;
+        }
 
             // {}로 감싸진 이벤트는 표시하지 않음
             if (eventName.match(/^\{.*\}$/)) {
