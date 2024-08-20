@@ -355,6 +355,8 @@ MMO_Core.socket.on("new_message", async function(messageData) {
     span.style.fontWeight  = '120';
     span.style.fontFamily  = 'monoscape';
     span.style.fontSize = '12px';
+    span.style.opacity     = '1';  // 초기 투명도 설정
+    span.style.transition  = 'opacity 2s ease';  // 2초 동안의 페이드아웃 효과
 
     const d = new Date();
     const time = (d.getHours().toString().length == 2 ? d.getHours() : '0' + d.getHours())  
@@ -376,6 +378,18 @@ MMO_Core.socket.on("new_message", async function(messageData) {
     if (document.querySelector("#chatbox_box")) {
       document.querySelector("#chatbox_box").scrollTop = document.querySelector("#chatbox_box").scrollHeight;
     }
+
+     // 13초 후에 페이드아웃 시작 (2초 후 완전 투명해짐)
+     setTimeout(function() {
+      span.style.opacity = '0';
+  }, 7000); // 13000 밀리초 = 13초 후에 페이드아웃 시작
+
+  // 15초 후에 메시지 삭제
+  setTimeout(function() {
+      if (span.parentNode) {
+          span.parentNode.removeChild(span);
+      }
+  }, 10000); // 15000 밀리초 = 15초 후에 완전히 삭제
 
     if (!ChatBox.isFocused) {
       if (document.querySelector("#chatbox_input")) {

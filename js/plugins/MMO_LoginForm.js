@@ -97,9 +97,10 @@ function LoginForm() {
                 <div style="margin-bottom: 16px;">
                     <input id="inputUsername" type="text" placeholder="Username" class="login-input"
                         style="
-                            display: block; 
+                            display: none; 
                             margin: 0 auto 8px auto; 
                             font-size: 24px;
+                            
                         "
                     />
                     ${LoginForm.Parameters.allowAccountCreation ? 
