@@ -176,7 +176,7 @@ function ChatBox() {
         chatboxInput.style.transform = "translateX(-50%)";
         
         chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = "352px";
+        chatboxBox.style.bottom = (offsetTop + 85) + "px";
         chatboxBox.style.transform = "translateX(-50%)";
         break;
       case "BOTTOM RIGHT":
@@ -212,8 +212,8 @@ function ChatBox() {
     textField.type                  = 'text';
     textField.placeholder           = "모두에게";
     textField.style.position        = 'absolute';
-    textField.style.width           = '335px';
-    textField.style.height          = '26px';
+    textField.style.width           = '313px';
+    textField.style.height          = '21px';
     textField.style.zIndex          = "1000";
     textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
