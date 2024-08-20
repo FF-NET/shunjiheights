@@ -205,6 +205,10 @@ function ChatBox() {
     });
   }
   
+  function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
   // Generate the main chatbox that contains messages
   function generateTextField() {
     let textField = document.createElement('input');
@@ -212,9 +216,9 @@ function ChatBox() {
     textField.type                  = 'text';
     textField.placeholder           = "모두에게";
     textField.style.position        = 'absolute';
-    textField.style.width           = '335px';
-    textField.style.height          = '20px';
-    textField.style.zIndex          = "1001";
+    textField.style.width           = '313px';
+    textField.style.height          = '21px';
+    textField.style.zIndex          = "1000";
     textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
     textField.style.backgroundColor = "background-color: #ffffff";
@@ -227,8 +231,8 @@ function ChatBox() {
     textField.addEventListener('focusout', function(e){handleFocus(e)});
     document.body.appendChild(textField);
       // Add media query to hide on mobile
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-  if (mediaQuery.matches) {
+   // Hide on mobile devices
+  if (isMobileDevice()) {
     textField.style.display = 'none';
   }
     blurOnMove(textField,0);
@@ -259,9 +263,9 @@ function ChatBox() {
     textZone.style.width          = '100%';
     textBox.appendChild(textZone);
       // Add media query to hide on mobile
-  const mediaQuery = window.matchMedia("(max-width: 768px)");
-  if (mediaQuery.matches) {
-    textField.style.display = 'none';
+  // Hide on mobile devices
+  if (isMobileDevice()) {
+    textBox.style.display = 'none';
   }
     blurOnMove(textBox);
   }
