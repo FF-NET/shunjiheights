@@ -212,7 +212,7 @@ function generateTextField() {
   textField.type                  = 'text';
   textField.placeholder           = "모두에게";
   textField.style.position        = 'absolute';
-  textField.style.width           = 'calc(50vw - 13px)';
+  textField.style.width           = 'calc(-13px + 30vw)';
   textField.style.maxWidth        = '437px';
   textField.style.minWidth        = '338px';
   textField.style.height          = '20px';
@@ -242,7 +242,7 @@ function generateTextBox() {
   let textBox = document.createElement('div');
   textBox.id                    = 'chatbox_box';
   textBox.style.position        = 'absolute';
-  textBox.style.width           = '50vw';
+  textBox.style.width           = '33vw';
   textBox.style.maxWidth        = '450px';
   textBox.style.minWidth        = '338px';
   textBox.style.height          = '44px';
