@@ -2035,7 +2035,7 @@ SceneManager.catchNormalError = function(e) {
 SceneManager.catchLoadError = function(e) {
     const url = e[1];
     const retry = e[2];
-    Graphics.printError("Failed to load", url);
+    Graphics.printError("불러오기에 실패했어요.", url);
     if (retry) {
         Graphics.showRetryButton(() => {
             retry();
@@ -2047,7 +2047,7 @@ SceneManager.catchLoadError = function(e) {
 };
 
 SceneManager.catchUnknownError = function(e) {
-    Graphics.printError("UnknownError", String(e));
+    Graphics.printError("알 수 없는 에러가 발생했어요.", String(e));
     AudioManager.stopAll();
 };
 
@@ -3099,7 +3099,7 @@ PluginManager.checkErrors = function() {
 };
 
 PluginManager.throwLoadError = function(url) {
-    throw new Error("Failed to load: " + url);
+    throw new Error("불러오는 데 실패했ㅇ어요...: " + url);
 };
 
 PluginManager.registerCommand = function(pluginName, commandName, func) {
