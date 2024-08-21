@@ -80,16 +80,12 @@ function LoginForm() {
     LoginForm.prototype.createLoginForm = function() {
         let html = `
         <div id="LoginForm" 
-            style="
-                position: fixed; 
-                top: 50vh; 
-                left: 50vw; 
-                border-radius: 8px; 
-                margin: 0 auto; 
-                width: 400px; 
-                padding: 8px; 
-                transform: translate(-50%, 0);
-                z-index: 999999999999999;
+            style="position: fixed;
+    top: 40%;
+    left: 50%;
+        margin: 0 auto;
+            transform: translate(-50%, 50%);
+    z-index: 999999999999999;
             "
         >
             <div>

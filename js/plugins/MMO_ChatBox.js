@@ -183,13 +183,17 @@ function ChatBox() {
         chatboxBox.style.bottom = (offsetTop + 36) + "px";
         break;
       case "BOTTOM CENTER":
-        chatboxInput.style.left = "50vw";
-        chatboxInput.style.bottom = Math.max(0, offsetTop + 59) + "px";
-        chatboxInput.style.transform = "translateX(-50%)";
+        /*chatboxInput.style.left = "33vw";*/
+       /* chatboxInput.style.bottom = "10%";*/
+        chatboxInput.style.transform = "translate(-50%, 50%)";
+        chatboxInput.style.zoom = "1.5";
+        chatboxInput.style.left = "50%"
+        chatboxInput.style.bottom = "15%"
         
-        chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = Math.max(0, offsetTop + 85) + "px";
+        chatboxBox.style.left = "50%"; 
+        chatboxBox.style.bottom = "18.2%";
         chatboxBox.style.transform = "translateX(-50%)";
+        chatboxBox.style.zoom = "1.5";
         break;
       case "BOTTOM RIGHT":
         chatboxInput.style.right = (offsetLeft + 8) + "px";
@@ -226,7 +230,7 @@ function ChatBox() {
     textField.style.position        = 'absolute';
     textField.style.width           = '335px';
     textField.style.height          = '21px';
-    textField.style.zIndex          = "1000";
+    textField.style.zIndex          = "1001";
     textField.style.color           = "rgb(0, 0, 0)";
     textField.style.paddingLeft     = "8px";
     textField.style.backgroundColor = "background-color: #ffffff";
