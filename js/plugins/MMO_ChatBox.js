@@ -25,6 +25,17 @@ function ChatBox() {
 }
 
 (function() {
+
+  function isMobileDevice() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  // 모바일 환경에서는 스크립트 전체를 무시
+  if (isMobileDevice()) {
+    console.log("ChatBox script is disabled on mobile devices.");
+    return;
+  }
+
   ChatBox.moveByInput = Game_Player.prototype.moveByInput;
   
   ChatBox.Parameters = PluginManager.parameters('MMO_ChatBox');
@@ -173,11 +184,11 @@ function ChatBox() {
         break;
       case "BOTTOM CENTER":
         chatboxInput.style.left = "50vw";
-        chatboxInput.style.bottom = (offsetTop + 59) + "px";
+        chatboxInput.style.bottom = Math.max(0, offsetTop + 59) + "px";
         chatboxInput.style.transform = "translateX(-50%)";
         
         chatboxBox.style.left = "50vw"; 
-        chatboxBox.style.bottom = (offsetTop + 85) + "px";
+        chatboxBox.style.bottom = Math.max(0, offsetTop + 85) + "px";
         chatboxBox.style.transform = "translateX(-50%)";
         break;
       case "BOTTOM RIGHT":
@@ -204,10 +215,6 @@ function ChatBox() {
    //     if (!$gamePlayer.isMoving()) elem.style.opacity = 1;
       }, 500);
     });
-  }
-  
-  function isMobileDevice() {
-    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   }
 
   // Generate the main chatbox that contains messages
@@ -331,7 +338,7 @@ const baseNicknames = [
   '배고픈 관찰자', '귀염둥이 관찰자', '사랑스러운 관찰자', '긍정왕', 
   '물총을 좋아하는 관찰자', '늦잠꾸러기', '오늘은 학교에 가기 싫은 관찰자',
   '오늘 막 하늘에서 떨어진 관찰자', '쓰레기산 산책왕', '발명왕', 
-  '비밀을 알고 관찰자', '아무것도 모르는 관찰자', '수수께끼를 몰고 다니는 관찰자',
+  '비밀을 알고 있다는 관찰자', '아무것도 모른다는 관찰자', '수수께끼를 몰고 다니는 관찰자',
   '존키벌레 전문 관찰자', '애니메이션 광', '메카닉 애호가', 
   '특촬물 전문 관찰자', '하늘에서 오늘 떨어진 관찰자', '별 애호가', 
   '위스키를 좋아하는 관찰자', '혼자 놀기의 달인', '초보 관찰자', 
@@ -418,4 +425,3 @@ MMO_Core.socket.on("new_message", async function(messageData) {
     }
   })
 })();
-
