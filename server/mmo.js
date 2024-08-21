@@ -3,8 +3,17 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const fs = require("fs"); // 추가된 부분: 파일 시스템 모듈
+const https = require("https"); // 추가된 부분: HTTPS 모듈
+
 const app = express();
-const server = require("http").createServer(app);
+
+// 기존의 HTTP 서버 설정을 HTTPS 서버 설정으로 변경
+const server = https.createServer({ 
+    key: fs.readFileSync('/etc/letsencrypt/live/shunjiheights.net/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/shunjiheights.net/fullchain.pem')
+}, app);
+
 const io = require("socket.io")(server, { log: false });
 
 /*****************************
