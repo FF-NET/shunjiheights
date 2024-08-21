@@ -42,6 +42,7 @@ function ChatBox() {
     if(!ChatBox.isGenerated || !ChatBox.isVisible) return;
 
     ChatBox.resize(); // Resize the chatbox
+    
   }, true);
 
   // Handle the first generation of the chatbox & when reentering a map scene
@@ -139,8 +140,8 @@ function ChatBox() {
   // Resize the chatbox following predefined parameters
   ChatBox.resize = function() {
     let canvas = document.querySelector("canvas");
-    let offsetTop     = canvas.offsetTop;
-    let offsetLeft  = canvas.offsetLeft;
+    let offsetTop = Math.max(0, canvas.offsetTop);
+    let offsetLeft = Math.max(0, canvas.offsetLeft);
 
     let chatboxInput = document.querySelector("#chatbox_input");
     let chatboxBox = document.querySelector("#chatbox_box");
@@ -232,13 +233,9 @@ function ChatBox() {
     document.body.appendChild(textField);
       // Add media query to hide on mobile
    // Hide on mobile devices
-   if (isMobileDevice()) {
-    textField.style.width = '0px';
-    textField.style.height = '0px';
-    textField.style.visibility = 'hidden';
-
-}
-
+  if (isMobileDevice()) {
+    textField.style.display = 'none';
+  }
     blurOnMove(textField,0);
   }
 
@@ -269,10 +266,8 @@ function ChatBox() {
       // Add media query to hide on mobile
   // Hide on mobile devices
   if (isMobileDevice()) {
-    textBox.style.width = '0px';
-    textBox.style.height = '0px';
-    textBox.style.visibility = 'hidden';
-}
+    textBox.style.display = 'none';
+  }
     blurOnMove(textBox);
   }
 
