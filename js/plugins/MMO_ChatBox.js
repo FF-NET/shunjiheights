@@ -232,9 +232,13 @@ function ChatBox() {
     document.body.appendChild(textField);
       // Add media query to hide on mobile
    // Hide on mobile devices
-  if (isMobileDevice()) {
-    textField.style.visibility= 'hidden';
-  }
+   if (isMobileDevice()) {
+    textField.style.width = '0px';
+    textField.style.height = '0px';
+    textField.style.visibility = 'hidden';
+
+}
+
     blurOnMove(textField,0);
   }
 
@@ -265,8 +269,10 @@ function ChatBox() {
       // Add media query to hide on mobile
   // Hide on mobile devices
   if (isMobileDevice()) {
+    textBox.style.width = '0px';
+    textBox.style.height = '0px';
     textBox.style.visibility = 'hidden';
-  }
+}
     blurOnMove(textBox);
   }
 
