@@ -233,7 +233,7 @@ function ChatBox() {
       // Add media query to hide on mobile
    // Hide on mobile devices
   if (isMobileDevice()) {
-    textField.style.display = 'none';
+    textField.style.visibility= 'hidden';
   }
     blurOnMove(textField,0);
   }
@@ -265,7 +265,7 @@ function ChatBox() {
       // Add media query to hide on mobile
   // Hide on mobile devices
   if (isMobileDevice()) {
-    textBox.style.display = 'none';
+    textBox.style.visibility = 'hidden';
   }
     blurOnMove(textBox);
   }
