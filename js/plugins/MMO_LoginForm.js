@@ -188,10 +188,8 @@ function LoginForm() {
         document.getElementById('btnConnect').addEventListener('click', () => {
             if (verifyPass()) that.connectAttempt();
         });
-                    // 폼이 생성된 후 '접속하기' 버튼을 자동으로 클릭
-    setTimeout(() => {
-        document.getElementById('btnConnect').click();
-    }, 1000); // 1초 후에 클릭 (필요시 조정 가능)
+
+
         MMO_Core.allowTouch = false;
     };
   
