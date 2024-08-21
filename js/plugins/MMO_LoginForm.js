@@ -84,7 +84,6 @@ function LoginForm() {
                 position: fixed; 
                 top: 50vh; 
                 left: 50vw; 
-                background-color: rgba(0, 0, 0, 0.4); 
                 border-radius: 8px; 
                 margin: 0 auto; 
                 width: 400px; 
