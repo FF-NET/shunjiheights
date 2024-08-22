@@ -4,13 +4,33 @@
         <meta charset="UTF-8">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta name="viewport" content="user-scalable=no">
+        <meta name="viewport" content="width=640, height=640, user-scalable=no">
         <link rel="icon" href="icon/icon.png" type="image/png">
         <link rel="apple-touch-icon" href="icon/icon.png">
         <link rel="stylesheet" type="text/css" href="./css/game.css">
         <link rel="stylesheet" type="text/css" href="./fonts/gamefont.css">
         <title>Shunji Heights</title>
         <style>
+
+
+
+
+
+body, html {
+  width: 640px;
+    height: 640px;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    overflow: hidden;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+ 
+
+
+        }
 
 #gameCanvas {
     position: absolute;
@@ -42,11 +62,11 @@
     </head>
     <body style="background-color: black">
         <script type="text/javascript" src="./js/libs/socket.io.js"></script> 
-<div style="width:640px; height:640px;">
+<div style="width:640px; height:640px">
         <div id="text_zone"></div>
 
         <script type="text/javascript" src="js/main.js"></script>
-</div>
+      </div>
     </body>
     <script>
         // 화살표 키로 인한 스크롤 방지
@@ -59,3 +79,4 @@
       </script>
 
 </html>
+
