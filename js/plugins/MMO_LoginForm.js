@@ -90,7 +90,7 @@ function LoginForm() {
         >
             <div>
                 <div style="margin-bottom: 16px;">
-                    <input id="inputUsername" type="text" placeholder="Username" class="login-input"
+                    <input id="inputUsername" type="text" placeholder="" class="login-input"
                         style="
                             display: none; 
                             margin: 0 auto 8px auto; 
@@ -119,17 +119,19 @@ function LoginForm() {
                 ></div>
                 <button id="btnConnect" 
                     style="
-                        display: block; 
-                        margin: 0 auto; 
-                        border: 0; 
-                        border-radius: 4px; 
-                        padding: 8px; 
-                        font-size: 24px;
+display: none;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 25px;
+    /* padding: 8px; */
+    font-size: 24px;
+    padding: 8px 15px 8px 15px;
                     "
                   >
-                      접속하기
+                      지금 플레이!
                 </button>
-            </div>
+            </div><div style="display:none; width:100%; flex-direction:center;">
+                        <div style="transform:translate(0, 240px); color:white; font-size:12px;">비즐라 톤토장 에디터의 아지카진 작업실 취재기</div></div>
             ${LoginForm.Parameters.allowAccountCreation ? 
             `<div style="text-align: center; margin-top: 8px;">
                 <a style="color: white;" href="./register.html" target="_blank">Sign up</a>
@@ -187,9 +189,11 @@ function LoginForm() {
         }
         document.getElementById('btnConnect').addEventListener('click', () => {
             if (verifyPass()) that.connectAttempt();
-        });
-
-
+        });    // 폼이 생성된 후 '접속하기' 버튼을 자동으로 클릭
+        setTimeout(() => {
+            document.getElementById('btnConnect').click();
+        }, 1000); // 1초 후에 클릭 (필요시 조정 가능)
+                    // 폼이 생성된 후 '접속하기' 버튼을 자동으로 클릭
         MMO_Core.allowTouch = false;
     };
   
