@@ -49,10 +49,5 @@ var $plugins =
 {"name":"MechPen_SharpText","status":false,"description":"v0.96 Text Sharpen plugin beta","parameters":{"outlineSharp":"false","textThickness":"0.50"}},
 {"name":"TDDP_NoFastForward","status":true,"description":"2.1.0 Disables the ability to fast forward move routes and/or text.                                                          id:TDDP_NoFastForward","parameters":{"Disable for Move Routes":"false","Disable for Show Text":"true"}},
 {"name":"gpt_soundcontroller","status":false,"description":"Adds a volume control button to the bottom right corner of the game screen. Clicking the button will reduce the game volume step by step.","parameters":{}},
-<<<<<<< HEAD
-{"name":"gpt_sudofadein","status":false,"description":"","parameters":{}},
-{"name":"MMO_LoginForm_admin","status":false,"description":"MMORPG Maker MV - Login Form","parameters":{}}
-=======
 {"name":"gpt_sudofadein","status":false,"description":"","parameters":{}}
->>>>>>> parent of 78c3313 (Removed cached files)
 ];
